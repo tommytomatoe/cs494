@@ -55,7 +55,8 @@ minutes. Here are the steps I took. My development machine:
   * The Pi will prompt for password, and the password is `root`.
   * `ssh` connection is successful.
 8. Optionally, setup `ssh` config for easy connection in the future.
-
+  * On the client (Arch Linux on my MBP):
+ 
 ```sshconfig
 Host pi
     Hostname 10.0.10.22
@@ -63,4 +64,6 @@ Host pi
     User root
     Port 22
 ```
+  * Copy public key to Pi: `cat ~/.ssh/id_rsa.pub | ssh pi "mkdir .ssh && cat > .ssh/authorized_keys"`.
+  * Now we can `ssh` with ease.
 
