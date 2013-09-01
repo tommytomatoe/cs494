@@ -1,6 +1,7 @@
 ## Setpember 1, 2013
 
-### Install VNC Server
+### Install VNC Server 
+#### SSH into Raspberry Pi
 
 Install tigervnc or tightvnc:
 
@@ -30,4 +31,16 @@ New 'alarmpi:1 (tommy)' desktop is alarmpi:1
 Creating default startup script /home/tommy/.vnc/xstartup
 Starting applications specified in /home/tommy/.vnc/xstartup
 Log file is /home/tommy/.vnc/alarmpi:1.log
+```
+
+In order to see the XFCE Desktop, copy and paste the following into terminal:
+
+```bash
+cp ~/.vnc/xstartup ~/.vnc/xstartup.bak &&
+cat << 'EOF' > ~/.vnc/xstarup
+#!/bin/sh
+
+export XKL_XMODMAP_DISABLE=1
+exec /bin/sh /etc/xdg/xfce4/xinitrc
+EOF
 ```
