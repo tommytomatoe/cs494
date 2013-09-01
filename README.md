@@ -17,4 +17,5 @@ Github: `git clone https://github.com/tommytomatoe/cs494.git`
 
 Enjoy!
 
-### Last update: September 1, 2013
+### Last update: September 1, 2013 02:26:59 EDT
+
