@@ -10,6 +10,8 @@ viewable in Gitlab or Github.
 
 log00 - In the Beginning  
 log01 - Installing Arch Linux ARM   
-log02 - VNC Server  
+log02 - Install Essential Packages (audio, video, desktop)
+log03 - VNC Server  
 
-### Last update: September 1, 2013 03:04:43 EDT
+### Last update
+Sun Sep  1 03:35:13 EDT 2013
