@@ -64,6 +64,9 @@ Host pi
     User root
     Port 22
 ```
-  * Copy public key to Pi: `cat ~/.ssh/id_rsa.pub | ssh pi "mkdir .ssh && cat > .ssh/authorized_keys"`.
-  * Now we can `ssh` with ease.
 
+9. Copy public key to Pi: `cat ~/.ssh/id_rsa.pub | ssh pi "mkdir -p .ssh && cat > .ssh/authorized_keys"`.
+  * Now we can `ssh` with ease.
+10. Update Arch Linux ARM with `pacman -Syu` while in `ssh` session.
+
+Next time we will play with VNC server and other fun things!
