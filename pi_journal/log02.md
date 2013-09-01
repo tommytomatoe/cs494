@@ -48,5 +48,6 @@ It accepts one argument: the desktop environment or windows manager
 
 ```bash
 # cd /tmp && wget https://raw.github.com/tommytomatoe/cs494/master/tools/arch_install.sh
+# chmod +x arch_install.sh
 # ./arch_install.sh
 ```
