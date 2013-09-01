@@ -37,7 +37,7 @@ In order to see the XFCE Desktop, copy and paste the following into terminal:
 
 ```bash
 cp ~/.vnc/xstartup ~/.vnc/xstartup.bak &&
-cat << 'EOF' > ~/.vnc/xstarup
+cat << 'EOF' > ~/.vnc/xstartup
 #!/bin/sh
 
 export XKL_XMODMAP_DISABLE=1
