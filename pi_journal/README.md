@@ -8,8 +8,8 @@ viewable in Gitlab or Github.
 
 ## Log Index
 
-log00 - In the Beginning
-log01 - Installing Arch Linux ARM
+log00 - In the Beginning 
+log01 - Installing Arch Linux ARM 
 log02 - VNC Server
 
 ### Last update: September 1, 2013 03:04:43 EDT
