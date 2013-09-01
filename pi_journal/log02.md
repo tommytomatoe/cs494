@@ -41,7 +41,3 @@ Install login manager:
 ```bash
 # pacman -S slim
 ```
-
-### Set up VNC Server on Arch Linux ARM
-
-
