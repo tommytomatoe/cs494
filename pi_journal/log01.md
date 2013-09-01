@@ -66,6 +66,12 @@ minutes. Here are the steps I took. My development machine:
 Host pi
     Hostname 10.0.10.22
     IdentifyFile ~/.ssh/id_rsa
+    User tommy
+    Port 22
+
+Host pi-root
+    Hostname 10.0.10.22
+    IdentifyFile ~/.ssh/id_rsa
     User root
     Port 22
 ```
