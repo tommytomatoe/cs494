@@ -2,7 +2,7 @@
 
 ### Install Audio, Video, and Essential Packages
 
-In a `ssh` session, run the following commands.
+#### In a `ssh` session, run the following commands.
 
 Install audio:
 
@@ -40,4 +40,13 @@ Install login manager:
 
 ```bash
 # pacman -S slim
+```
+
+#### Optional install script
+The `arch_install.sh` script automatically installs necessary packages
+It accepts one argument: the desktop environment or windows manager
+
+```bash
+# cd /tmp && wget https://raw.github.com/tommytomatoe/cs494/master/tools/arch_install.sh
+# ./arch_install.sh
 ```
