@@ -12,7 +12,8 @@ https://github.com/tommytomatoe/cs494.git
 To download the repository, clone from either remote:
 
 Gitlab: `git clone http://git.classic.cx/utk/cs494.git`
-Github: `git clone https://github.com/tommytomatoe/cs494.git'
+
+Github: `git clone https://github.com/tommytomatoe/cs494.git`
 
 Enjoy!
 
