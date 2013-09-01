@@ -58,6 +58,7 @@ Now, start it again with custom parameters:
 $ vncserver -geometry 1024x800 -alwaysshared -dpi 96 :1
 ```
 
+
 #### On the client side
 
 There are many free VNC clients available for Linux, OS X, and Windows. TigerVNC
@@ -73,3 +74,13 @@ When done with the session, go ahead and kill the vncserver from the Pi:
 ```bash
 $ vncserver -kill :1
 ```
+
+
+### Notes
+
+The desktop over VNC was very usable. However, KDE or GNOME would definitely
+decrease the performance. I highly recommend using XFCE or other lightweight
+desktop environment.
+
+The Pi is a versatile machine, but it is not made to be a full blown desktop
+replacement.
