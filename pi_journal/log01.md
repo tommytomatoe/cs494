@@ -55,6 +55,7 @@ minutes. Here are the steps I took. My development machine:
   * The Pi will prompt for password, and the password is `root`.
   * `ssh` connection is successful.
 8. Optionally, setup `ssh` config for easy connection in the future.
+
 ```Shell
 Host pi
     Hostname 10.0.10.22
