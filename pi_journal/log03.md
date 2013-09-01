@@ -33,7 +33,8 @@ Starting applications specified in /home/tommy/.vnc/xstartup
 Log file is /home/tommy/.vnc/alarmpi:1.log
 ```
 
-In order to see the XFCE Desktop, copy and paste the following into terminal:
+In order to see the XFCE Desktop in a VNC session, copy and paste the following
+block into terminal. Copy the entire command (7 line): 
 
 ```bash
 cp ~/.vnc/xstartup ~/.vnc/xstartup.bak &&
