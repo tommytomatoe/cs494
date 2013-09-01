@@ -22,7 +22,7 @@ pacman -S alsa-utils alsa-firmware alsa-lib alsa-plugins
 pacman -S xf86-video-fbdev
 
 # install x server
-pacman -S xorg-xinit xorg-server xorg-server-uti
+pacman -S xorg-xinit xorg-server xorg-server-utils xterm
 
 # install desktop environment
 # default is 'xfce4' if no argument is given
@@ -30,3 +30,6 @@ pacman -S "$ARCHDE"
 
 # install login manager
 pacman -S slim
+
+# install other tools
+pacman -S sudo vim bash-completion
