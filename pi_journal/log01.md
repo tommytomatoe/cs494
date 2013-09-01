@@ -55,16 +55,19 @@ minutes. Here are the steps I took. My development machine:
   * The Pi will prompt for password, and the password is `root`.
   * `ssh` connection is successful.
 8. Optionally, setup `ssh` config for easy connection in the future.
-  * On the client (Arch Linux on my MBP):
-  * ```sshconfig
+  * On the client (Arch Linux on my MBP), setup .ssh/config like the one below
+9. Copy public key to Pi: `cat ~/.ssh/id_rsa.pub | ssh pi "mkdir -p .ssh && cat > .ssh/authorized_keys"`.
+  * Now we can `ssh` with ease.
+10. Update Arch Linux ARM with `pacman -Syu` while in `ssh` session.
+
+### Sample ssh config entry
+
+```sshconfig
 Host pi
     Hostname 10.0.10.22
     IdentifyFile ~/.ssh/id_rsa
     User root
     Port 22
 ```
-9. Copy public key to Pi: `cat ~/.ssh/id_rsa.pub | ssh pi "mkdir -p .ssh && cat > .ssh/authorized_keys"`.
-  * Now we can `ssh` with ease.
-10. Update Arch Linux ARM with `pacman -Syu` while in `ssh` session.
 
 Next time we will play with VNC server and other fun things!
