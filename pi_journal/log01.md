@@ -56,7 +56,7 @@ minutes. Here are the steps I took. My development machine:
   * `ssh` connection is successful.
 8. Optionally, setup `ssh` config for easy connection in the future.
 
-```viml
+```sshconfig
 Host pi
     Hostname 10.0.10.22
     IdentifyFile ~/.ssh/id_rsa
