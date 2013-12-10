@@ -4,12 +4,16 @@
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
-#include <stddef.h>
+#include <conf.h>
+
+#if NETHER
+
 #include <device.h>
 #include <ether.h>
+#include <stddef.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * @ingroup shell
@@ -26,7 +30,7 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     int n;
 
     /* Output help, if '--help' argument was supplied */
-    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+    if (nargs == 2 && strcmp(args[1], "--help") == 0)
     {
         printf("Usage: %s <ETHNUM>\n\n", args[0]);
         printf("Description:\n");
@@ -43,12 +47,10 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     /* No arguments to ethstat gives statistics for all interfaces */
     if (nargs < 2)
     {
-#if NETHER
         for (n = 0; n < NETHER; n++)
         {
             etherStat(n);
         }
-#endif
         return 0;
     }
     else if (2 == nargs)
@@ -57,7 +59,7 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     }
     else if (3 == nargs)
     {
-        if (strncmp(args[1], "-t", 2) != 0)
+        if (strcmp(args[1], "-t") != 0)
         {
             fprintf(stderr, "Invalid argument '%s', try %s --help\n",
                     args[1], args[0]);
@@ -75,9 +77,7 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     }
 
     /* Check for valid device */
-#if NETHER
     if (dev >= NETHER)
-#endif
     {
         fprintf(stderr, "%s: (%d) No such ethernet device\n", args[0],
                 dev);
@@ -94,3 +94,5 @@ shellcmd xsh_ethstat(int nargs, char *args[])
 
     return 0;
 }
+
+#endif /* NETHER */

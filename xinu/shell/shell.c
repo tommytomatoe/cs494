@@ -131,37 +131,31 @@ thread shell(int indescrp, int outdescrp, int errdescrp)
     syscall child;              /* pid of child thread      */
     ushort i, j;                /* temp variables           */
     irqmask im;                 /* interrupt mask state     */
-
-    /* hostname variables */
-    char hostnm[NET_HOSTNM_MAXLEN + 1]; /* hostname of backend      */
-    char *hostptr;              /* pointer to hostname      */
-    int hostname_strsz;         /* nvram hostname name size */
-    device *devptr;             /* device pointer           */
-
-    hostptr = NULL;
-    devptr = NULL;
-    bzero(hostnm, NET_HOSTNM_MAXLEN + 1);
+    char *hostptr = NULL;       /* pointer to hostname      */
 
     /* Setup buffer for string for nvramGet call for hostname */
-#ifdef ETH0
-    hostname_strsz = 0;
+#if defined(ETH0) && NVRAM
+    char hostnm[NET_HOSTNM_MAXLEN + 1]; /* hostname of backend      */
     if (!isbaddev(ETH0))
     {
+        size_t hostname_strsz;          /* nvram hostname name size */
+
+        bzero(hostnm, NET_HOSTNM_MAXLEN + 1);
+
         /* Determine the hostname of the main network device */
-        devptr = (device *)&devtab[ETH0];
-        hostname_strsz = strnlen(NET_HOSTNAME, NVRAM_STRMAX) + 1;
+        hostname_strsz = strlen(NET_HOSTNAME);
+        hostname_strsz += 1;
         hostname_strsz += DEVMAXNAME;
+        hostname_strsz += 1;
         char nvramget_hostname_str[hostname_strsz];
-        sprintf(nvramget_hostname_str, "%s_%s", devptr->name,
+        sprintf(nvramget_hostname_str, "%s_%s", devtab[ETH0].name,
                 NET_HOSTNAME);
 
         /* Acquire the backend's hostname */
-#if NVRAM
         hostptr = nvramGet(nvramget_hostname_str);
-#endif                          /* NVRAM */
         if (hostptr != NULL)
         {
-            memcpy(hostnm, hostptr, NET_HOSTNM_MAXLEN);
+            strncpy(hostnm, hostptr, NET_HOSTNM_MAXLEN);
             hostptr = hostnm;
         }
     }
@@ -173,19 +167,21 @@ thread shell(int indescrp, int outdescrp, int errdescrp)
     stderr = errdescrp;
 
     /* Print shell banner to framebuffer, if exists */
-#if FRAMEBUF
-    foreground = RASPBERRY;
-    printf(SHELL_BANNER_PI_NONVT100);
-    foreground = LEAFGREEN;
-    printf(SHELL_START);
-    foreground = GREEN;
-#else 
-    printf(SHELL_BANNER);
-    printf(SHELL_START);
+#if defined(FRAMEBUF)
+    if (indescrp == FRAMEBUF)
+    {
+        foreground = RASPBERRY;
+        printf(SHELL_BANNER_NONVT100);
+        foreground = LEAFGREEN;
+        printf(SHELL_START);
+        foreground = GREEN;
+    }
+    else
 #endif
-
-
-   
+    {
+        printf(SHELL_BANNER);
+        printf(SHELL_START);
+    }
 
     /* Continually receive and handle commands */
     while (TRUE)
@@ -303,7 +299,7 @@ thread shell(int indescrp, int outdescrp, int errdescrp)
         /* Lookup first token in the command table */
         for (i = 0; i < ncommand; i++)
         {
-            if (0 == strncmp(commandtab[i].name, tok[0], SHELL_BUFLEN))
+            if (0 == strcmp(commandtab[i].name, tok[0]))
             {
                 break;
             }

@@ -1,0 +1,34 @@
+## Install Xinu 
+### October 20, 2013 
+
+In order to install Xinu, I had to install the arm toolchain.
+
+Fortunately in Arch Linux, there is a pkgbuild for this: https://aur.archlinux.org/packages/arm-none-eabi-gcc/
+
+Commands:
+
+
+```bash
+wget https://aur.archlinux.org/packages/ar/arm-none-eabi-binutils/arm-none-eabi-binutils.tar.gz  
+tar zxvf arm-none-eabi-binutils.tar.gz
+cd arm-none-eabi-binutils
+makepkg -i
+wget https://aur.archlinux.org/packages/ar/arm-none-eabi-gcc/arm-none-eabi-gcc.tar.gz
+tar zxvf arm-none-eabi-gcc.tar.gz  
+cd arm-none-eabi-gcc/ 
+makepkg -i
+```
+
+After installing the cross-compiler, I cloned xinu and compiled it:
+
+```
+git clone https://github.com/xinu-os/xinu
+cd xinu
+make -C compile PLATFORM=arm-rpi
+```
+
+The kernel image, xinu.boot, was about 201K in size. I copied the xinu.boot to
+the sdcard and renamed it kernel.img.
+
+I booted into xinu and was able to get the xsh. I ran some of the basic programs
+built into the shell. 

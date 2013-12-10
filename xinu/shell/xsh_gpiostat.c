@@ -25,7 +25,7 @@ shellcmd xsh_gpiostat(int nargs, char *args[])
     ulong offset;
 
     /* Output help, if '--help' argument was supplied */
-    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+    if (nargs == 2 && strcmp(args[1], "--help") == 0)
     {
         printf("Usage: %s\n\n", args[0]);
         printf("Description:\n");
@@ -70,9 +70,9 @@ shellcmd xsh_gpiostat(int nargs, char *args[])
         {
             printf(" Input  ");
         }
-        printf("   %1d    ", (pgcsr->input & offset) >> p);
-        printf("   %1d    ", (pgcsr->output & offset) >> p);
-        printf("   %1d    ", (pgcsr->control & offset) >> p);
+        printf("   %1lu    ", (pgcsr->input & offset) >> p);
+        printf("   %1lu    ", (pgcsr->output & offset) >> p);
+        printf("   %1lu    ", (pgcsr->control & offset) >> p);
         printf("\n");
     }
 

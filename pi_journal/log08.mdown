@@ -1,0 +1,14 @@
+## System Maintenance
+### October 13, 2013
+
+Today we do a little system maintenance to prepare for xinu embedded linux
+
+In order to resize the partitions on the SD card, I installed gparted and used
+it to resize the root partition from 2GB to 6GB. This process was pretty
+painless.
+
+After the partitions were set, I tried the example OS from Alex Chadwick. I
+loaded up the kernel.img and everything booted nicely. Since I wanted to get
+into xinu, I only played with this for a few minutes. Off to compiling xinu!
+
+

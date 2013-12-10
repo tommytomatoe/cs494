@@ -34,5 +34,6 @@ DEVICES  := ethloop         \
             framebuffer_rpi \
             udp             \
             usb             \
+            usbkbd          \
             loopback        \
             tty

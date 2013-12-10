@@ -1,0 +1,45 @@
+## September 08, 2013 
+
+### Increase Partition Size
+
+#### Connect Pi via Serial Console
+
+Using GNU screen, I logged into the PI using the serial console.
+Using the black, white, and green pins I hooked the GPIO pins.
+Once in, I used wifi-menu to find my local network.
+Once connected to WiFi, I used ssh to connect as root.
+
+Kernel version:Linux alarmpi 3.6.11-17-ARCH+ #1 PREEMPT Sun Aug 25 08:45:40 CDT 2013 armv6l GNU/Linux 
+
+#### Resize SD Card Partitions  
+
+The default partitions look like this:
+
+```bash
+[root@alarmpi ~]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       1.7G  1.5G   59M  97% /
+devtmpfs         83M     0   83M   0% /dev
+tmpfs           231M     0  231M   0% /dev/shm
+tmpfs           231M  264K  231M   1% /run
+tmpfs           231M     0  231M   0% /sys/fs/cgroup
+tmpfs           231M     0  231M   0% /tmp
+/dev/mmcblk0p1   90M   25M   66M  28% /boot
+```
+
+
+I shut down the Pi and plugged the SD Card into my Mac. Using Gparted, I was able to resize the partitions.
+
+They now look like this:
+
+```bash 
+[root@alarmpi ~]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       5.5G  1.5G  3.8G  29% /
+devtmpfs         83M     0   83M   0% /dev
+tmpfs           231M     0  231M   0% /dev/shm
+tmpfs           231M  268K  231M   1% /run
+tmpfs           231M     0  231M   0% /sys/fs/cgroup
+tmpfs           231M     0  231M   0% /tmp
+/dev/mmcblk0p1   90M   25M   66M  28% /boot
+```

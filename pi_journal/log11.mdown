@@ -1,0 +1,18 @@
+## Course Final Thoughts
+### December 9, 2013
+
+I learned quite a bit about OS in this class. The raspberry pi was a fantastic
+tool, however I find we could have benefited from more direction. Perhaps more
+focused labs or assignments. I understand the nature of the practicum, however
+there was very little guidance by way of programming assignments. This said, Dr.
+Beck was very instructive in class as far going over the history and
+fundamentals of operating systems.
+
+Playing with Xinu was a fun experience. Having worked with routers before, it
+was especially cool to see the source code for such things as the scheduler and
+signals. 
+
+If I could do anything differently in this course it would be to find more
+raspberry pi labs and assignments. Using the pi as a Linux box was great and I
+will continue doing that. Arch Linux makes kernel hacking a breeze, and I
+definitely plan on doing some more hacking.

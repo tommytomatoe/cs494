@@ -18,7 +18,7 @@ static bool do_detailed_fscanf_tests(bool verbose, bool passed);
  */
 thread test_libStdio(bool verbose)
 {
-#if LOOP
+#if defined(LOOP0)
     char str[50];
     int stdsav;
     int d, o, x;
@@ -28,82 +28,82 @@ thread test_libStdio(bool verbose)
     int ret;
     char *pret;
 
-    ret = open(LOOP);
+    ret = open(LOOP0);
     failif(ret == SYSERR, "failed to open loopback device");
 
-    ret = control(LOOP, LOOP_CTRL_SET_FLAG, LOOP_NONBLOCK, 0);
+    ret = control(LOOP0, LOOP_CTRL_SET_FLAG, LOOP_NONBLOCK, 0);
     failif(ret == SYSERR, "failed to set loopback device to nonblocking");
 
     /* fputc, fgetc.  Note: return value of fgetc() must be stored in 'int', not
      * 'char', because it can be 257 possible values (all characters, plus EOF).
      * */
     testPrint(verbose, "fgetc, fputc: basic functionality");
-    ret = fputc('a', LOOP);
+    ret = fputc('a', LOOP0);
     failif(ret != 'a', "fputc failed to return put character");
-    ret = fputc('\n', LOOP);
+    ret = fputc('\n', LOOP0);
     failif(ret != '\n', "fputc failed to return put character");
-    ret = fputc(4, LOOP);
+    ret = fputc(4, LOOP0);
     failif(ret != 4, "fputc failed to return put character");
-    ret = fgetc(LOOP);
+    ret = fgetc(LOOP0);
     failif(ret != 'a', "fgetc failed to return character");
-    ret = fgetc(LOOP);
+    ret = fgetc(LOOP0);
     failif(ret != '\n', "fgetc failed to return character");
-    ret = fgetc(LOOP);
+    ret = fgetc(LOOP0);
     failif(ret != 4, "fgetc failed to return character");
 
     /* fgets */
 
     /* fgets - test basic functionality */
     testPrint(verbose, "fgets: basic functionality");
-    ret = write(LOOP, "Test sentence.\n", 15);
+    ret = write(LOOP0, "Test sentence.\n", 15);
     failif(ret != 15, "failed to write data to loopback device");
     memset(str, 'X', 20);
-    pret = fgets(str, 20, LOOP);
+    pret = fgets(str, 20, LOOP0);
     failif(pret != str, "fgets failed to return output buffer");
     failif((0 != memcmp(str, "Test sentence.\n\0XXXX", 20)),
            "fgets failed to correctly return written data");
 
     /* fgets - Test partial reads */
     testPrint(verbose, "fgets: partial reads");
-    ret = write(LOOP, "Test sentence.\n", 15);
+    ret = write(LOOP0, "Test sentence.\n", 15);
     failif(ret != 15, "failed to write data to loopback device");
     memset(str, 'X', 20);
-    pret = fgets(str, 8, LOOP);
+    pret = fgets(str, 8, LOOP0);
     failif(pret != str, "fgets failed to return output buffer");
     failif((0 != memcmp(str, "Test se\0XX", 10)),
            "fgets failed to correctly return written data");
     memset(str, 'X', 20);
-    pret = fgets(str, 9, LOOP);
+    pret = fgets(str, 9, LOOP0);
     failif(pret != str, "fgets failed to return output buffer");
     failif((0 != memcmp(str, "ntence.\n\0X", 10)),
            "fgets failed to correctly return written data");
 
     /* fgets - check returns NULL at end-of-file */
     testPrint(verbose, "fgets: return NULL on end-of-file");
-    pret = fgets(str, 9, LOOP);
+    pret = fgets(str, 9, LOOP0);
     failif(pret != NULL, "fgets failed to return NULL on end-of-file");
 
     /* fgets - Test reading stops at newline */
     testPrint(verbose, "fgets: only read until newline");
-    ret = write(LOOP, "line1\nline2\n", 12);
+    ret = write(LOOP0, "line1\nline2\n", 12);
     failif(ret != 12, "failed to write data to loopback device");
     memset(str, 'X', 20);
-    pret = fgets(str, 16, LOOP);
+    pret = fgets(str, 16, LOOP0);
     failif(pret != str, "fgets failed to return output buffer");
     failif(0 != memcmp(str, "line1\n\0XXX", 10),
            "fgets failed to read only partial line");
 
     memset(str, 'X', 20);
-    pret = fgets(str, 16, LOOP);
+    pret = fgets(str, 16, LOOP0);
     failif(pret != str, "fgets failed to return output buffer");
     failif(0 != memcmp(str, "line2\n\0XXX", 10),
            "fgets failed to read only partial line");
 
     /* fputs */
     testPrint(verbose, "fputs: basic functionality");
-    ret = fputs("Put test.", LOOP);
+    ret = fputs("Put test.", LOOP0);
     failif(ret < 0, "fputs failed to return nonnegative value on success");
-    ret = read(LOOP, str, 9);
+    ret = read(LOOP0, str, 9);
     failif(ret != 9, "failed to read data put with fputs");
     failif((0 != strncmp(str, "Put test.", 9)),
            "data read back with fputs was not the same as written");
@@ -111,31 +111,31 @@ thread test_libStdio(bool verbose)
     /* putchar, getchar */
     testPrint(verbose, "putchar, getchar: basic functionality");
     stdsav = stdout;
-    stdout = LOOP;
+    stdout = LOOP0;
     ret = putchar('a');
     stdout = stdsav;
     failif(ret != 'a', "putchar failed to return character written");
     stdsav = stdin;
-    stdin = LOOP;
+    stdin = LOOP0;
     ret = getchar();
     stdin = stdsav;
     failif(ret != 'a', "getchar failed to return character previously written");
 
     testPrint(verbose, "getchar: return EOF on end-of-file");
     stdsav = stdin;
-    stdin = LOOP;
+    stdin = LOOP0;
     ret = getchar();
     stdin = stdsav;
     failif(ret != EOF, "getchar failed to return EOF on end-of-file");
 
     /* fprintf */
     testPrint(verbose, "fprintf: basic functionality");
-    ret = fprintf(LOOP, "%d %o %x %c %s", 75, 75, 75, 75, "ABC");
+    ret = fprintf(LOOP0, "%d %o %x %c %s", 75, 75, 75, 75, "ABC");
 
     failif(ret != TEST_STR_LEN,
            "fprintf() did not correctly return number of characters written");
 
-    ret = read(LOOP, str, TEST_STR_LEN);
+    ret = read(LOOP0, str, TEST_STR_LEN);
     failif(ret != TEST_STR_LEN,
            "failed to read data back from loop device");
 
@@ -145,12 +145,12 @@ thread test_libStdio(bool verbose)
     /* printf */
     testPrint(verbose, "printf: basic functionality");
     stdsav = stdout;
-    stdout = LOOP;
+    stdout = LOOP0;
     ret = printf("%d %o %x %c %s", 75, 75, 75, 75, "ABC");
     stdout = stdsav;
     failif(ret != TEST_STR_LEN,
            "printf() did not correctly return number of characters written");
-    ret = read(LOOP, str, TEST_STR_LEN);
+    ret = read(LOOP0, str, TEST_STR_LEN);
     failif(ret != TEST_STR_LEN,
            "failed to read data back from loop device");
     failif((0 != strncmp(str, TEST_STR, TEST_STR_LEN)),
@@ -179,10 +179,10 @@ thread test_libStdio(bool verbose)
     /* fscanf */
     testPrint(verbose, "fscanf: basic functionality");
     d = o = x = c = 0;
-    ret = write(LOOP, TEST_STR, TEST_STR_LEN);
+    ret = write(LOOP0, TEST_STR, TEST_STR_LEN);
     failif(ret != TEST_STR_LEN,
            "failed to write data to loopback device");
-    ret = fscanf(LOOP, "%d %o %x %c %s", &d, &o, &x, &c, s);
+    ret = fscanf(LOOP0, "%d %o %x %c %s", &d, &o, &x, &c, s);
     failif(ret != 5,
            "fscanf did not correctly return number of matches");
     failif(75 != d || 75 != o || 75 != x || 75 != c ||
@@ -193,11 +193,11 @@ thread test_libStdio(bool verbose)
 
     testPrint(verbose, "scanf: basic functionality");
     d = o = x = c = 0;
-    ret = write(LOOP, TEST_STR, TEST_STR_LEN);
+    ret = write(LOOP0, TEST_STR, TEST_STR_LEN);
     failif(ret != TEST_STR_LEN,
            "failed to write data to loopback device");
     stdsav = stdin;
-    stdin = LOOP;
+    stdin = LOOP0;
     ret = scanf("%d %o %x %c %s", &d, &o, &x, &c, s);
     stdin = stdsav;
     failif(ret != 5, "scanf did not correctly return number of matches");
@@ -210,7 +210,7 @@ thread test_libStdio(bool verbose)
     /* More detailed fscanf tests */
     passed = do_detailed_fscanf_tests(verbose, passed);
     
-    control(LOOP, LOOP_CTRL_CLR_FLAG, LOOP_NONBLOCK, 0);
+    control(LOOP0, LOOP_CTRL_CLR_FLAG, LOOP_NONBLOCK, 0);
 
     if (passed)
     {
@@ -221,14 +221,14 @@ thread test_libStdio(bool verbose)
         testFail(TRUE, "");
     }
 
-    close(LOOP);
-#else  /* LOOP */
+    close(LOOP0);
+#else  /* defined(LOOP0) */
     testSkip(TRUE, "");
-#endif  /* !LOOP */
+#endif  /* !defined(LOOP0) */
     return OK;
 }
 
-#if LOOP
+#if defined(LOOP0)
 
 /* Declarative format for formatted printing tests.  */
 static const struct {
@@ -333,6 +333,18 @@ static const struct {
         .nargs = 2,
         .args = {5, (uint)"truncate me"},
     },
+    { /* Non-truncated string, negative max-width has no effect  */
+        .format = "%.*s",
+        .expected_output = "truncate me",
+        .nargs = 2,
+        .args = {-1, (uint)"truncate me"},
+    },
+    { /* Truncated string, implicit zero max-width   */
+        .format = "%.s",
+        .expected_output = "",
+        .nargs = 1,
+        .args = {(uint)"truncate me"},
+    },
     { /* Right justified string */
         .format = "%10s",
         .expected_output = "     right",
@@ -356,6 +368,12 @@ static const struct {
         .expected_output = "left    ",
         .nargs = 2,
         .args = {8, (uint)"left"},
+    },
+    { /* Left justified string via negative min-width specified as vararg */
+        .format = "%*s",
+        .expected_output = "left    ",
+        .nargs = 2,
+        .args = {-8, (uint)"left"},
     },
     { /* Negative integer */
         .format = "%d",
@@ -447,6 +465,42 @@ static const struct {
         .nargs = 1,
         .args = {0},
     },
+    { /* Integer precision */
+        .format = "%.3d",
+        .expected_output = "003",
+        .nargs = 1,
+        .args = {3},
+    },
+    { /* Integer precision + padding  */
+        .format = "%6.3d",
+        .expected_output = "   003",
+        .nargs = 1,
+        .args = {3},
+    },
+    { /* Integer precision + padding (zero flag ignored) */
+        .format = "%06.3d",
+        .expected_output = "   003",
+        .nargs = 1,
+        .args = {3},
+    },
+    { /* Integer precision + padding (left) */
+        .format = "%-6.3d",
+        .expected_output = "003   ",
+        .nargs = 1,
+        .args = {3},
+    },
+    { /* Integer precision + padding (negative) */
+        .format = "%6.3d",
+        .expected_output = "  -003",
+        .nargs = 1,
+        .args = {-3},
+    },
+    { /* Integer precision + padding (left, negative) */
+        .format = "%-6.3d",
+        .expected_output = "-003  ",
+        .nargs = 1,
+        .args = {-3},
+    },
     { /* Literal chars */
         .format = "literal",
         .expected_output = "literal",
@@ -491,19 +545,19 @@ static bool do_detailed_fprintf_tests(bool verbose, bool passed)
         switch (nargs)
         {
             case 0:
-                ret = fprintf(LOOP, format);
+                ret = fprintf(LOOP0, format);
                 break;
             case 1:
-                ret = fprintf(LOOP, format, args[0]);
+                ret = fprintf(LOOP0, format, args[0]);
                 break;
             case 2:
-                ret = fprintf(LOOP, format, args[0], args[1]);
+                ret = fprintf(LOOP0, format, args[0], args[1]);
                 break;
             case 3:
-                ret = fprintf(LOOP, format, args[0], args[1], args[2]);
+                ret = fprintf(LOOP0, format, args[0], args[1], args[2]);
                 break;
             case 4:
-                ret = fprintf(LOOP, format, args[0], args[1], args[2], args[3]);
+                ret = fprintf(LOOP0, format, args[0], args[1], args[2], args[3]);
                 break;
             default:
                 failif(1, "invalid number of arguments");
@@ -517,7 +571,7 @@ static bool do_detailed_fprintf_tests(bool verbose, bool passed)
         failif(ret != len, test_strbuf);
 
         memset(obuf, 'X', len + 1);
-        ret = read(LOOP, obuf, len + 1);
+        ret = read(LOOP0, obuf, len + 1);
         failif(ret != len, "failed to read all data printed");
 
         failif(0 != memcmp(obuf, expected_output, len),
@@ -526,7 +580,7 @@ static bool do_detailed_fprintf_tests(bool verbose, bool passed)
         /* Flush loopback device.  */
         for (j = 0; j < 10000; j++)
         {
-            if (fgetc(LOOP) == EOF)
+            if (fgetc(LOOP0) == EOF)
             {
                 break;
             }
@@ -596,6 +650,18 @@ static struct {
         .format = "%d",
         .expected_nmatches = 1,
         .expected_results = { INT_ARG(-123), },
+    },
+    { /* Numbers with max width specified  */
+        .input="123456",
+        .format = "%3d%3d",
+        .expected_nmatches = 2,
+        .expected_results = { INT_ARG(123), INT_ARG(456), },
+    },
+    { /* Numbers with max width specified  */
+        .input="-123456",
+        .format = "%3d%3d%c%c",
+        .expected_nmatches = 3,
+        .expected_results = { INT_ARG(-12), INT_ARG(345), STRING_ARG("6"), },
     },
     { /* Negative number with leading zeroes and leading whitespace */
         .input = "     -000123",
@@ -795,27 +861,27 @@ static bool do_detailed_fscanf_tests(bool verbose, bool passed)
 
         /* Write data to be scanned to the loopback device  */
 
-        ret = write(LOOP, input, input_len);
+        ret = write(LOOP0, input, input_len);
         failif(ret != input_len, "failed to write data to loopback device");
 
         /* Scan the data  */
         switch (nargs)
         {
             case 0:
-                ret = fscanf(LOOP, format);
+                ret = fscanf(LOOP0, format);
                 break;
             case 1:
-                ret = fscanf(LOOP, format, scan_ptrs[0]);
+                ret = fscanf(LOOP0, format, scan_ptrs[0]);
                 break;
             case 2:
-                ret = fscanf(LOOP, format, scan_ptrs[0], scan_ptrs[1]);
+                ret = fscanf(LOOP0, format, scan_ptrs[0], scan_ptrs[1]);
                 break;
             case 3:
-                ret = fscanf(LOOP, format, scan_ptrs[0], scan_ptrs[1],
+                ret = fscanf(LOOP0, format, scan_ptrs[0], scan_ptrs[1],
                              scan_ptrs[2]);
                 break;
             case 4:
-                ret = fscanf(LOOP, format, scan_ptrs[0], scan_ptrs[1],
+                ret = fscanf(LOOP0, format, scan_ptrs[0], scan_ptrs[1],
                              scan_ptrs[2], scan_ptrs[3]);
                 break;
             default:
@@ -862,7 +928,7 @@ static bool do_detailed_fscanf_tests(bool verbose, bool passed)
         /* Flush loopback device.  */
         for (j = 0; j < 10000; j++)
         {
-            if (fgetc(LOOP) == EOF)
+            if (fgetc(LOOP0) == EOF)
             {
                 break;
             }
@@ -871,4 +937,4 @@ static bool do_detailed_fscanf_tests(bool verbose, bool passed)
     return passed;
 }
 
-#endif /* LOOP */
+#endif /* defined(LOOP0) */

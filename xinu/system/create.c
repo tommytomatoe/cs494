@@ -71,7 +71,6 @@ tid_typ create(void *procaddr, uint ssize, int priority,
     thrptr->prio = priority;
     thrptr->stkbase = saddr;
     thrptr->stklen = ssize;
-    thrptr->stkptr = saddr;
     strlcpy(thrptr->name, name, TNMLEN);
     thrptr->parent = gettid();
     thrptr->hasmsg = FALSE;
@@ -86,7 +85,7 @@ tid_typ create(void *procaddr, uint ssize, int priority,
     /* Set up new thread's stack with context record and arguments.
      * Architecture-specific.  */
     va_start(ap, nargs);
-    thrptr->stkptr = arch_setup_stack(saddr, procaddr, INITRET, nargs, ap);
+    thrptr->stkptr = setupStack(saddr, procaddr, INITRET, nargs, ap);
     va_end(ap);
 
     /* Restore interrupts and return new thread TID.  */

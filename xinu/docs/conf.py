@@ -16,7 +16,7 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -25,7 +25,7 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.pngmath', 'sphinx.ext.mathjax']
+extensions = ['sphinx.ext.pngmath', 'sphinx.ext.mathjax', 'xinusource']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -82,6 +82,9 @@ exclude_patterns = ['_build']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
+
+# Default language for syntax highlighting
+highlight_language = 'c'
 
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
@@ -180,7 +183,13 @@ latex_elements = {
 #'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+
+# Increase the DPI from the default of 72 to get images sizes specified in
+# pixels to look similar in the HTML and PDF outputs
+'preamble': """
+        \pdfpxdimen=1in
+        \divide\pdfpxdimen by 144
+    """,
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -246,3 +255,7 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+rst_epilog = """
+.. |EX| replace:: :doc:`Embedded Xinu </Introduction>`
+"""

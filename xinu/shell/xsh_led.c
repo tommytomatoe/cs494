@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef GPIO_BASE
+
 /**
  * @ingroup shell
  *
@@ -22,7 +24,7 @@ shellcmd xsh_led(int nargs, char *args[])
     ulong led;                  /* led to control */
 
     /* Output help, if '--help' argument was supplied */
-    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+    if (nargs == 2 && strcmp(args[1], "--help") == 0)
     {
         printf("Usage: %s <DESCRIPTOR> <STATE>\n\n", args[0]);
         printf("Description:\n");
@@ -52,23 +54,23 @@ shellcmd xsh_led(int nargs, char *args[])
 
     led = 0;
     /* find led to change */
-    if (strncmp(args[1], "dmz", 3) == 0)
+    if (strcmp(args[1], "dmz") == 0)
     {
         led = GPIO_LED_DMZ;
     }
-    else if (strncmp(args[1], "wlan", 4) == 0)
+    else if (strcmp(args[1], "wlan") == 0)
     {
         led = GPIO_LED_WLAN;
     }
-    else if (strncmp(args[1], "power", 5) == 0)
+    else if (strcmp(args[1], "power") == 0)
     {
         led = GPIO1;
     }
-    else if (strncmp(args[1], "ciscow", 6) == 0)
+    else if (strcmp(args[1], "ciscow") == 0)
     {
         led = GPIO_LED_CISCOWHT;
     }
-    else if (strncmp(args[1], "ciscoo", 6) == 0)
+    else if (strcmp(args[1], "ciscoo") == 0)
     {
         led = GPIO_LED_CISCOONG;
     }
@@ -79,13 +81,12 @@ shellcmd xsh_led(int nargs, char *args[])
                 args[0]);
     }
 
-#ifdef GPIO_BASE
     /* change led state */
-    if (strncmp(args[2], "on", 2) == 0)
+    if (strcmp(args[2], "on") == 0)
     {
         gpioLEDOn(led);
     }
-    else if (strncmp(args[2], "off", 3) == 0)
+    else if (strcmp(args[2], "off") == 0)
     {
         gpioLEDOff(led);
     }
@@ -95,7 +96,8 @@ shellcmd xsh_led(int nargs, char *args[])
         fprintf(stderr, "Try '%s --help' for more information\n",
                 args[0]);
     }
-#endif                          /* GPIO_BASE */
 
     return 0;
 }
+
+#endif /* GPIO_BASE */
