@@ -38,7 +38,11 @@ shellcmd xsh_timeserver(int nargs, char *args[])
     int descrp, port, i;
 
     /* parse arguments to find port number */
+<<<<<<< HEAD
     if ((2 == nargs) && (strcmp(args[1], "--help") == 0))
+=======
+    if ((2 == nargs) && (strncmp(args[1], "--help", 7) == 0))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s [-d device] [-p port]\n\n", args[0]);
         printf("Description:\n");
@@ -67,14 +71,22 @@ shellcmd xsh_timeserver(int nargs, char *args[])
     /* set user options if specified */
     for (i = 1; i < nargs; i++)
     {
+<<<<<<< HEAD
         if (strcmp(args[i], "-d") == 0)
+=======
+        if (strncmp(args[i], "-d", 3) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             i++;
             if (i >= nargs)
                 return argErr(args[0], "");
             descrp = getdev(args[i]);
         }
+<<<<<<< HEAD
         else if (strcmp(args[i], "-p") == 0)
+=======
+        else if (strncmp(args[i], "-p", 3) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             i++;
             if (i >= nargs)

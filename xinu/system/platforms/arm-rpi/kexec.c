@@ -20,7 +20,11 @@
  * Arguments are:
  *
  * r0:  pointer to new kernel
+<<<<<<< HEAD
  * r1:  size of new kernel in 32-bit words
+=======
+ * r1:  size of new kernel
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  * r2:  pointer to ARM boot tags (preserved in r2 for convenience of new kernel)
  *
  * This is hard-coded to copy the kernel to address 0x8000.
@@ -54,7 +58,11 @@ static const ulong copy_kernel[] = {
  * @param kernel
  *      Pointer to the new kernel image loaded anywhere in memory.
  * @param size
+<<<<<<< HEAD
  *      Size of the new kernel image in bytes.
+=======
+ *      Size of the new kernel image.
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  *
  * @return
  *      This function never returns.  If it somehow does, then something has
@@ -73,7 +81,11 @@ syscall kexec(const void *kernel, uint size)
      * then pass control to it.  */
     extern void *atags_ptr;
     (( void (*)(const void *, ulong, void *))(COPY_KERNEL_ADDR))
+<<<<<<< HEAD
                 (kernel, (size + 3) / 4, atags_ptr);
+=======
+                (kernel, size, atags_ptr);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     /* Control should never reach here.  */
     restore(im);

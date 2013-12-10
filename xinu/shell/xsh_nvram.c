@@ -33,12 +33,20 @@ shellcmd xsh_nvram(int nargs, char *args[])
         fprintf(stderr, "error: device does not appear to have nvram.\n");
     }
 
+<<<<<<< HEAD
     if (2 == nargs && 0 == strcmp(args[1], "list"))
+=======
+    if (2 == nargs && 0 == strncmp(args[1], "list", 5))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         xsh_nvramList();
         return 0;
     }
+<<<<<<< HEAD
     else if (3 == nargs && 0 == strcmp(args[1], "get"))
+=======
+    else if (3 == nargs && 0 == strncmp(args[1], "get", 4))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         value = nvramGet(args[2]);
         if (value)
@@ -52,6 +60,7 @@ shellcmd xsh_nvram(int nargs, char *args[])
             return 1;
         }
     }
+<<<<<<< HEAD
     else if (3 == nargs && 0 == strcmp(args[1], "set"))
     {
         return xsh_nvramSet(args[2]);
@@ -61,6 +70,17 @@ shellcmd xsh_nvram(int nargs, char *args[])
         return nvramUnset(args[2]);
     }
     else if (2 == nargs && 0 == strcmp(args[1], "commit"))
+=======
+    else if (3 == nargs && 0 == strncmp(args[1], "set", 4))
+    {
+        return xsh_nvramSet(args[2]);
+    }
+    else if (3 == nargs && 0 == strncmp(args[1], "unset", 6))
+    {
+        return nvramUnset(args[2]);
+    }
+    else if (2 == nargs && 0 == strncmp(args[1], "commit", 7))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         return nvramCommit();
     }

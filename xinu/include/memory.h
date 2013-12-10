@@ -19,12 +19,15 @@
  * @ingroup memory_mgmt
  *
  * Frees memory allocated with stkget().
+<<<<<<< HEAD
  *
  * @param p
  *      Pointer to the topmost (highest address) word of the allocated stack (as
  *      returned by stkget()).
  * @param len
  *      Size of the allocated stack, in bytes.  (Same value passed to stkget().)
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  */
 #define stkfree(p, len) memfree((void *)((ulong)(p)         \
                                 - (ulong)roundmb(len)       \

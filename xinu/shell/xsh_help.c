@@ -24,7 +24,11 @@ shellcmd xsh_help(int nargs, char *args[])
     char *command_args[2];      /* temporary storage for [command] --help */
 
     /* Output help, if '--help' argument was supplied */
+<<<<<<< HEAD
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage:\n");
         printf("\t%s [command]\n", args[0]);
@@ -54,7 +58,11 @@ shellcmd xsh_help(int nargs, char *args[])
     {
         for (i = 0; i < ncommand; i++)
         {
+<<<<<<< HEAD
             if (strcmp(args[1], commandtab[i].name) == 0)
+=======
+            if (strncmp(args[1], commandtab[i].name, SHELL_BUFLEN) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             {
                 command_args[0] = args[1];
                 command_args[1] = "--help";

@@ -28,7 +28,11 @@ shellcmd xsh_uartstat(int nargs, char *args[])
     char n;
 
     /* Output help, if '--help' argument was supplied */
+<<<<<<< HEAD
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s [-t] <UARTNUM>\n\n", args[0]);
         printf("Description:\n");
@@ -61,7 +65,11 @@ shellcmd xsh_uartstat(int nargs, char *args[])
     }
     else if (3 == nargs)
     {
+<<<<<<< HEAD
         if (strcmp(args[1], "-t") != 0)
+=======
+        if (strncmp(args[1], "-t", 2) != 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             fprintf(stderr, "Invalid argument '%s', try %s --help\n",
                     args[1], args[0]);

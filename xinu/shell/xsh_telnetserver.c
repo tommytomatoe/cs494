@@ -40,7 +40,11 @@ shellcmd xsh_telnetserver(int nargs, char *args[])
 
     bzero(thrname, TNMLEN);
     /* parse arguments to find port number */
+<<<<<<< HEAD
     if ((2 == nargs) && (strcmp(args[1], "--help") == 0))
+=======
+    if ((2 == nargs) && (strncmp(args[1], "--help", 7) == 0))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s [-d device] [-p port] [-h]\n\n", args[0]);
         printf("Description:\n");
@@ -57,7 +61,11 @@ shellcmd xsh_telnetserver(int nargs, char *args[])
     }
 
     /* Halt telnet server */
+<<<<<<< HEAD
     if ((2 == nargs) && (0 == strcmp(args[1], "-h")))
+=======
+    if ((2 == nargs) && (0 == strncmp(args[1], "-h", 3)))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         /* Kill all main telnet server threads */
         for (i = 0; i < NTHREAD; i++)
@@ -95,14 +103,22 @@ shellcmd xsh_telnetserver(int nargs, char *args[])
     /* set user options if specified */
     for (i = 1; i < nargs; i++)
     {
+<<<<<<< HEAD
         if (strcmp(args[i], "-d") == 0)
+=======
+        if (strncmp(args[i], "-d", 3) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             i++;
             if (i >= nargs)
                 return argErr(args[0], "");
             descrp = getdev(args[i]);
         }
+<<<<<<< HEAD
         else if (strcmp(args[i], "-p") == 0)
+=======
+        else if (strncmp(args[i], "-p", 3) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             i++;
             if (i >= nargs)
@@ -136,7 +152,11 @@ shellcmd xsh_telnetserver(int nargs, char *args[])
     for (i = 0; i < NTELNET; i++)
     {
         spawntelnet = telnetAlloc();
+<<<<<<< HEAD
         sprintf(thrname, "telnetServ_%d", (spawntelnet - TELNET0));
+=======
+        sprintf(thrname, "telnetServ_%d\0", (spawntelnet - TELNET0));
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         TELNET_TRACE("Spawning %s on %d", thrname, spawntelnet - TELNET0);
         ready(create((void *)telnetServer, INITSTK, INITPRIO, thrname,
                      4, descrp, port, spawntelnet, "SHELL2"),

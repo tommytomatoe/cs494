@@ -139,40 +139,67 @@ shellcmd xsh_turtle(int nargs, char *args[])
             continue;
         }
         //type end to break.
+<<<<<<< HEAD
         if ( (0 == strcmp(tok[0], "end")) && (ntok == 1) ) break;
 
         //display a help menu that explains available colors and commands
         else if ((0 == strcmp(tok[0], "help")) && (ntok == 1)) {
+=======
+        if ( (0 == strncmp(tok[0], "end", 3)) && (ntok == 1) ) break;
+
+        //display a help menu that explains available colors and commands
+        else if ((0 == strncmp(tok[0], "help", 4)) && (ntok == 1)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             printHelp();
             continue;
         } 
 
         //reset back to beginning state
+<<<<<<< HEAD
         else if ((0 == strcmp(tok[0], "reset")) && (ntok == 1)) {
+=======
+        else if ((0 == strncmp(tok[0], "reset", 5)) && (ntok == 1)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             reset();
             continue;
         }
 
         //go back to (0, 0)
+<<<<<<< HEAD
         else if ((0 == strcmp(tok[0], "home")) && (ntok == 1)) {
+=======
+        else if ((0 == strncmp(tok[0], "home", 4)) && (ntok == 1)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             home();
             continue;
         }
 
         //display all current turtle variables
+<<<<<<< HEAD
         else if ((0 == strcmp(tok[0], "status")) && (ntok == 1)) {
+=======
+        else if ((0 == strncmp(tok[0], "status", 6)) && (ntok == 1)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             status();
             continue;
         }
 
         //built-in tests
+<<<<<<< HEAD
         else if ((0 == strcmp(tok[0], "test")) && (ntok == 1)) {
+=======
+        else if ((0 == strncmp(tok[0], "test", 4)) && (ntok == 1)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             test();
             continue;
         }
 
         //define a new command. eg, 'define line forward 100'
+<<<<<<< HEAD
         else if (0 == strcmp(tok[0], "define")) {
+=======
+        else if (0 == strncmp(tok[0], "define", 6)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             char *text = "";
             bzero(text, COMMANDLENGTH);
             int i;
@@ -196,7 +223,11 @@ shellcmd xsh_turtle(int nargs, char *args[])
 	    else if ((ntok == 1) && (newcommandfinder(ntok, tok) == OK)) continue;
 
 	    /* Handle repeat commands: repeat n [command n*] */
+<<<<<<< HEAD
 	    else if (0 == strcmp(tok[0], "repeat") ) {
+=======
+	    else if (0 == strncmp(tok[0], "repeat", 6) ) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             repeatcommand(atoi(tok[1]), ntok, tok);
             continue;
     } 
@@ -285,7 +316,11 @@ int newcommandfinder(int nargs, char *args[]) {
     char *tok[SHELL_MAXTOK];    
     int j = 0;
     for (i = 0; i < MAXNEWCOMMANDS; i++) {
+<<<<<<< HEAD
         if (0 == strcmp(newcommandtab[i].name, "NULL")) {
+=======
+        if (0 == strncmp(newcommandtab[i].name, "NULL", 4)) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             return SYSERR; //command not in table
         }
         else if (0 == strncmp(newcommandtab[i].name, args[0], COMMANDNAMELENGTH)) {
@@ -294,7 +329,11 @@ int newcommandfinder(int nargs, char *args[]) {
                 return SYSERR;
             }
             while (ntok != 0) {
+<<<<<<< HEAD
                 if (0 == strcmp(tok[j], "repeat") ) {
+=======
+                if (0 == strncmp(tok[j], "repeat", 6) ) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                     repeatcommand(atoi(tok[j+1]), ntok, tok + j);
                     return OK;
                 } else if (commandfinder(tok[j], tok[j + 1]) == OK) {
@@ -404,9 +443,15 @@ void widthset(char *newwidth) {
 
 /* put pen down or lift pen up */
 void pendrop(char *newpos) {
+<<<<<<< HEAD
     if (0 == strcmp(newpos, "up") ) {
         up = TRUE;
     } else if (0 == strcmp(newpos, "down") ) {
+=======
+    if (0 == strncmp(newpos, "up", 2) ) {
+        up = TRUE;
+    } else if (0 == strncmp(newpos, "down", 2) ) {
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         up = FALSE;
     } else printf("Invalid pen arguments provided.");
 }
@@ -573,7 +618,11 @@ void printHelp() {
     printf("\thelp: display this screen.\n");
     printf("\nCustom Commands: \n");
     for (i = 0; i < MAXNEWCOMMANDS; i++) {
+<<<<<<< HEAD
         if (0 == strcmp(newcommandtab[i].name, "NULL")) break;
+=======
+        if (0 == strncmp(newcommandtab[i].name, "NULL", 4)) break;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         printf("\t%s: %s\n", newcommandtab[i].name, newcommandtab[i].text);
     }
     printf("\nAvailable Colors: ");

@@ -34,6 +34,10 @@ devcall telnetRead(device *devptr, void *buf, uint len)
     int count = 0;
     int index = 0;
     bool willSga = FALSE;
+<<<<<<< HEAD
+=======
+    bool recvSga = FALSE;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     uchar *buffer = buf;
     uchar cmdbuf[3] = { 0, 0, 0 };
@@ -177,6 +181,10 @@ devcall telnetRead(device *devptr, void *buf, uint len)
                     if (TELNET_SUPPRESS_GA == ch)
                     {
                         TELNET_TRACE("Recv WILL Suppress Go-Ahead");
+<<<<<<< HEAD
+=======
+                        recvSga = TRUE;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                         cmdbuf[1] = TELNET_WILL;
                         if (FALSE == willSga)
                         {

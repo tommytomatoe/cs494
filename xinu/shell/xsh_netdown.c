@@ -26,7 +26,11 @@ shellcmd xsh_netdown(int nargs, char *args[])
     int descrp;
 
     /* Help */
+<<<<<<< HEAD
     if ((2 == nargs) && (0 == strcmp(args[1], "--help")))
+=======
+    if ((2 == nargs) && (0 == strncmp(args[1], "--help", 7)))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage:\n");
         printf("\t%s <DEVICE>\n", args[0]);

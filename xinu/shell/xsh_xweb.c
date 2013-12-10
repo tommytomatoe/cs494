@@ -23,8 +23,25 @@
  */
 shellcmd xsh_xweb(int nargs, char *args[])
 {
+<<<<<<< HEAD
     /* Output help, if '--help' argument was supplied */
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    int i;
+    int descrp;
+    struct netif *interface;
+    struct thrent *thrptr;
+    semaphore oldsem;
+
+    i = 0;
+    descrp = 0;
+    oldsem = 0;
+    thrptr = NULL;
+    interface = NULL;
+
+    /* Output help, if '--help' argument was supplied */
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s [<DEVICE>|-h]\n\n", args[0]);
         printf("Description:\n");
@@ -44,6 +61,7 @@ shellcmd xsh_xweb(int nargs, char *args[])
 
 #ifdef NHTTP
 
+<<<<<<< HEAD
     int i = 0;
     int descrp = 0;
     struct netif *interface = NULL;
@@ -52,6 +70,10 @@ shellcmd xsh_xweb(int nargs, char *args[])
 
     /* Halt XWeb thread */
     if (nargs == 2 && strcmp(args[1], "-h") == 0)
+=======
+    /* Halt XWeb thread */
+    if (nargs == 2 && strncmp(args[1], "-h", 3) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         /* Kill all main XWeb threads */
         for (i = 0; i < NTHREAD; i++)

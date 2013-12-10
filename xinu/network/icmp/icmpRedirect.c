@@ -1,11 +1,22 @@
 /**
  * @file icmpRedirect.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 #include <ipv4.h>
 #include <icmp.h>
 #include <string.h>
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <stddef.h>
+#include <ipv4.h>
+#include <icmp.h>
+#include <stdlib.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <route.h>
 
 /**
@@ -17,6 +28,7 @@
  * @param route new gateway for packet
  * @return OK if packet was sent, otherwise SYSERR
  */
+<<<<<<< HEAD
 syscall icmpRedirect(struct packet *redir, uchar code,
                      struct rtEntry *route)
 {
@@ -26,6 +38,16 @@ syscall icmpRedirect(struct packet *redir, uchar code,
     int result;
     int ihl;
     struct netaddr src;
+=======
+syscall icmpRedirect(struct packet *redir, int code,
+                     struct rtEntry *route)
+{
+    struct packet *pkt = NULL;
+    struct ipv4Pkt *ip = NULL;
+    struct netaddr dst;
+    int result = OK;
+    int ihl = 0;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     ICMP_TRACE("ICMP redirect, code(%d)", code);
     pkt = netGetbuf();
@@ -54,8 +76,12 @@ syscall icmpRedirect(struct packet *redir, uchar code,
 
     memcpy(pkt->curr, route->gateway.addr, IPv4_ADDR_LEN);
 
+<<<<<<< HEAD
     src.type = 0;
     result = icmpSend(pkt, ICMP_REDIRECT, code, pkt->len, &src, &dst);
+=======
+    result = icmpSend(pkt, ICMP_REDIRECT, code, pkt->len, &dst);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     netFreebuf(pkt);
     return result;

@@ -1,8 +1,16 @@
 /**
  * @file icmpEchoRequest.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <stddef.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <icmp.h>
 #include <stdlib.h>
 #include <clock.h>
@@ -19,10 +27,16 @@
  */
 syscall icmpEchoRequest(struct netaddr *dst, ushort id, ushort seq)
 {
+<<<<<<< HEAD
     struct packet *pkt;
     struct icmpEcho *echo;
     int result;
     struct netaddr src;
+=======
+    struct packet *pkt = NULL;
+    struct icmpEcho *echo = NULL;
+    int result = OK;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     irqmask im;
 
     ICMP_TRACE("echo request(%d, %d)", id, seq);
@@ -51,6 +65,7 @@ syscall icmpEchoRequest(struct netaddr *dst, ushort id, ushort seq)
     echo->arrivtic = 0;
     echo->arrivsec = 0;
 
+<<<<<<< HEAD
     ICMP_TRACE("Sending Echo Request id = %d, seq = %d, time = %lu.%lu",
                net2hs(echo->id), net2hs(echo->seq),
                net2hl(echo->timesec), net2hl(echo->timetic));
@@ -58,6 +73,13 @@ syscall icmpEchoRequest(struct netaddr *dst, ushort id, ushort seq)
     src.type = 0;
 
     result = icmpSend(pkt, ICMP_ECHO, 0, sizeof(struct icmpEcho), &src, dst);
+=======
+    ICMP_TRACE("Sending Echo Request id = %d, seq = %d, time = %d.%d",
+               net2hs(echo->id), net2hs(echo->seq),
+               net2hl(echo->timesec), net2hl(echo->timetic));
+
+    result = icmpSend(pkt, ICMP_ECHO, 0, sizeof(struct icmpEcho), dst);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     netFreebuf(pkt);
     return result;
 }

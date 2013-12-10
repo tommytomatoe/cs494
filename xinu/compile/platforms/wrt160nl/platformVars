@@ -27,7 +27,11 @@ DEVICES := ag71xx       \
            tcp          \
            telnet       \
            tty          \
+<<<<<<< HEAD
            uart-ns16550 \
+=======
+           uart-ns16550a\
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
            udp
 
 # On this platform, generating the final boot image requires an external tool.

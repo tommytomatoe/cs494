@@ -4,6 +4,7 @@
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
+<<<<<<< HEAD
 #include <conf.h>
 
 #if NETHER
@@ -14,6 +15,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+=======
+#include <stddef.h>
+#include <device.h>
+#include <ether.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 /**
  * @ingroup shell
@@ -30,7 +39,11 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     int n;
 
     /* Output help, if '--help' argument was supplied */
+<<<<<<< HEAD
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s <ETHNUM>\n\n", args[0]);
         printf("Description:\n");
@@ -47,10 +60,18 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     /* No arguments to ethstat gives statistics for all interfaces */
     if (nargs < 2)
     {
+<<<<<<< HEAD
+=======
+#if NETHER
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         for (n = 0; n < NETHER; n++)
         {
             etherStat(n);
         }
+<<<<<<< HEAD
+=======
+#endif
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         return 0;
     }
     else if (2 == nargs)
@@ -59,7 +80,11 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     }
     else if (3 == nargs)
     {
+<<<<<<< HEAD
         if (strcmp(args[1], "-t") != 0)
+=======
+        if (strncmp(args[1], "-t", 2) != 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             fprintf(stderr, "Invalid argument '%s', try %s --help\n",
                     args[1], args[0]);
@@ -77,7 +102,13 @@ shellcmd xsh_ethstat(int nargs, char *args[])
     }
 
     /* Check for valid device */
+<<<<<<< HEAD
     if (dev >= NETHER)
+=======
+#if NETHER
+    if (dev >= NETHER)
+#endif
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         fprintf(stderr, "%s: (%d) No such ethernet device\n", args[0],
                 dev);
@@ -94,5 +125,8 @@ shellcmd xsh_ethstat(int nargs, char *args[])
 
     return 0;
 }
+<<<<<<< HEAD
 
 #endif /* NETHER */
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0

@@ -1,15 +1,27 @@
 /**
  * @file icmpSend.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009, 2013.  All rights reserved. */
 
 #include <ipv4.h>
 #include <icmp.h>
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <stddef.h>
+#include <ipv4.h>
+#include <icmp.h>
+#include <ethernet.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <network.h>
 
 /**
  * @ingroup icmp
  *
+<<<<<<< HEAD
  * Send an ICMP (Internet Control Message Protocol) packet.
  *
  * @param pkt
@@ -38,6 +50,16 @@ syscall icmpSend(struct packet *pkt, uchar type, uchar code,
                  uint datalen, struct netaddr *src, struct netaddr *dst)
 {
     struct icmpPkt *icmp;
+=======
+ * Sends an ICMP reply.
+ * @return OK if packet was sent, otherwise SYSERR
+ */
+syscall icmpSend(struct packet *pkt, uchar type, uchar code,
+                 int datalen, struct netaddr *dst)
+{
+    struct icmpPkt *icmp = NULL;
+    struct netaddr src;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     /* Error check pointers */
     if (NULL == pkt)
@@ -54,6 +76,13 @@ syscall icmpSend(struct packet *pkt, uchar type, uchar code,
     icmp->chksum = 0;
     icmp->chksum = netChksum((uchar *)icmp, datalen + ICMP_HEADER_LEN);
 
+<<<<<<< HEAD
     ICMP_TRACE("Sending ICMP packet type %d, code %d", type, code);
     return ipv4Send(pkt, src, dst, IPv4_PROTO_ICMP);
+=======
+    src.type = NULL;
+
+    ICMP_TRACE("Sending ICMP packet type %d, code %d", type, code);
+    return ipv4Send(pkt, &src, dst, IPv4_PROTO_ICMP);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 }

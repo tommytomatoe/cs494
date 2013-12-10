@@ -4,10 +4,17 @@
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
+<<<<<<< HEAD
 #include <network.h>
 #include <snoop.h>
 #include <stdio.h>
 #include <string.h>
+=======
+#include <stddef.h>
+#include <network.h>
+#include <snoop.h>
+#include <stdio.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <tcp.h>
 
 static void snoopPrintTcpPort(ushort port, char *descrp)
@@ -15,6 +22,7 @@ static void snoopPrintTcpPort(ushort port, char *descrp)
     switch (net2hs(port))
     {
     case TCP_PORT_HTTP:
+<<<<<<< HEAD
         strcpy(descrp, "(HTTP)");
         break;
     case TCP_PORT_TELNET:
@@ -22,6 +30,15 @@ static void snoopPrintTcpPort(ushort port, char *descrp)
         break;
     default:
         strcpy(descrp, "");
+=======
+        sprintf(descrp, "(HTTP)");
+        break;
+    case TCP_PORT_TELNET:
+        sprintf(descrp, "(Telnet)");
+        break;
+    default:
+        sprintf(descrp, "");
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         break;
     }
 }
@@ -46,7 +63,11 @@ int snoopPrintTcp(struct tcpPkt *tcp, char verbose)
 
     if (verbose >= SNOOP_VERBOSE_ONE)
     {
+<<<<<<< HEAD
         printf(" ----- TCP Header -----\n");
+=======
+        printf(" ----- TCP Header -----\n", "");
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         /* Source Port */
         if (verbose >= SNOOP_VERBOSE_TWO)
         {
@@ -54,7 +75,11 @@ int snoopPrintTcp(struct tcpPkt *tcp, char verbose)
         }
         else
         {
+<<<<<<< HEAD
             strcpy(descrp, "");
+=======
+            sprintf(descrp, "");
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         }
         sprintf(output, "%d %s", net2hs(tcp->srcpt), descrp);
         printf("  Src Port: %-25s ", output);
@@ -66,7 +91,11 @@ int snoopPrintTcp(struct tcpPkt *tcp, char verbose)
         }
         else
         {
+<<<<<<< HEAD
             strcpy(descrp, "");
+=======
+            sprintf(descrp, "");
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         }
         sprintf(output, "%d %s", net2hs(tcp->dstpt), descrp);
         printf("Dst Port: %-25s\n", output);

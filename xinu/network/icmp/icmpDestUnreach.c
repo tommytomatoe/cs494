@@ -1,11 +1,22 @@
 /**
  * @file icmpDestUnreach.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 #include <ipv4.h>
 #include <icmp.h>
 #include <string.h>
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <stddef.h>
+#include <ipv4.h>
+#include <icmp.h>
+#include <stdlib.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 /**
  * @ingroup icmp
@@ -15,6 +26,7 @@
  * @param code      ICMP destination unreachable code number
  * @return OK if packet was sent, otherwise SYSERR
  */
+<<<<<<< HEAD
 syscall icmpDestUnreach(const struct packet *unreached, uchar code)
 {
     struct packet *pkt;
@@ -23,6 +35,15 @@ syscall icmpDestUnreach(const struct packet *unreached, uchar code)
     int result;
     int ihl;
     struct netaddr src;
+=======
+syscall icmpDestUnreach(const struct packet *unreached, int code)
+{
+    struct packet *pkt = NULL;
+    const struct ipv4Pkt *ip = NULL;
+    struct netaddr dst;
+    int result = OK;
+    int ihl = 0;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     ICMP_TRACE("destination unreachable (%d)", code);
     pkt = netGetbuf();
@@ -50,9 +71,13 @@ syscall icmpDestUnreach(const struct packet *unreached, uchar code)
     pkt->len += 4;
     *((ulong *)pkt->curr) = 0;
 
+<<<<<<< HEAD
     src.type = 0;
 
     result = icmpSend(pkt, ICMP_UNREACH, code, pkt->len, &src, &dst);
+=======
+    result = icmpSend(pkt, ICMP_UNREACH, code, pkt->len, &dst);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     netFreebuf(pkt);
     return result;

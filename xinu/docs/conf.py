@@ -16,7 +16,11 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
+<<<<<<< HEAD
 sys.path.insert(0, os.path.abspath('.'))
+=======
+#sys.path.insert(0, os.path.abspath('.'))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 # -- General configuration -----------------------------------------------------
 
@@ -25,7 +29,11 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
+<<<<<<< HEAD
 extensions = ['sphinx.ext.pngmath', 'sphinx.ext.mathjax', 'xinusource']
+=======
+extensions = ['sphinx.ext.pngmath', 'sphinx.ext.mathjax']
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -83,9 +91,12 @@ exclude_patterns = ['_build']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
+<<<<<<< HEAD
 # Default language for syntax highlighting
 highlight_language = 'c'
 
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
@@ -183,6 +194,7 @@ latex_elements = {
 #'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
+<<<<<<< HEAD
 
 # Increase the DPI from the default of 72 to get images sizes specified in
 # pixels to look similar in the HTML and PDF outputs
@@ -190,6 +202,9 @@ latex_elements = {
         \pdfpxdimen=1in
         \divide\pdfpxdimen by 144
     """,
+=======
+#'preamble': '',
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -255,7 +270,10 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+<<<<<<< HEAD
 
 rst_epilog = """
 .. |EX| replace:: :doc:`Embedded Xinu </Introduction>`
 """
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0

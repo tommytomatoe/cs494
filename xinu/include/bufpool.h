@@ -56,6 +56,7 @@ syscall buffree(void *);
 int bfpalloc(uint, uint);
 syscall bfpfree(int);
 
+<<<<<<< HEAD
 #ifndef NPOOL
 #  define NPOOL 0
 #endif
@@ -73,4 +74,6 @@ syscall bfpfree(int);
 #  endif
 #endif
 
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #endif                          /* _BUFPOOL_H_ */

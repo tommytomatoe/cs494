@@ -37,12 +37,20 @@ shellcmd xsh_testsuite(int nargs, char *args[])
     /* Parse args */
     for (i = 1; i < nargs; i++)
     {
+<<<<<<< HEAD
         if (0 == strcmp(args[i], "--help"))
+=======
+        if (0 == strncmp(args[i], "--help", 7))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             help(args[0]);
             return 1;
         }
+<<<<<<< HEAD
         else if (0 == strcmp(args[i], "-v"))
+=======
+        else if (0 == strncmp(args[i], "-v", 2))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             verbose = TRUE;
         }

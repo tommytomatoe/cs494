@@ -26,7 +26,11 @@ struct usb_device;
 
 /** Minimum priority for USB messages.  Only messages with priority greater than
  * or equal to this will be printed.  */
+<<<<<<< HEAD
 #define USB_MIN_LOG_PRIORITY        4
+=======
+#define USB_MIN_LOG_PRIORITY        2
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 /**********************************************************************/
 

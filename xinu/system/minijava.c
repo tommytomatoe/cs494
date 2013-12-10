@@ -66,7 +66,11 @@ int *_new(int n, int init)
     int size = (n + 2) * 4;
     int *p = (int *)memget(size);
     bzero(p, size);
+<<<<<<< HEAD
     p[0] = moncreate();
+=======
+    p[0] = moncreate(1);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     p[1] = init;
     return p + 2;
 }

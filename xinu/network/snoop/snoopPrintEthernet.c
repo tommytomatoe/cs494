@@ -31,7 +31,11 @@ int snoopPrintEthernet(struct etherPkt *ether, char verbose)
     if (verbose >= SNOOP_VERBOSE_TWO)
     {
         /* Print ethernet header */
+<<<<<<< HEAD
         printf(" ----- Ethernet Header -----\n");
+=======
+        printf(" ----- Ethernet Header -----\n", "");
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         hwaddr.type = NETADDR_ETHERNET;
         hwaddr.len = ETH_ADDR_LEN;
         memcpy(hwaddr.addr, ether->dst, hwaddr.len);

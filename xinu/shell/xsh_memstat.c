@@ -58,7 +58,11 @@ shellcmd xsh_memstat(int nargs, char *args[])
     print = PRINT_DEFAULT;
 
     /* Output help, if '--help' argument was supplied */
+<<<<<<< HEAD
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         usage(args[0]);
         return 0;
@@ -67,7 +71,11 @@ shellcmd xsh_memstat(int nargs, char *args[])
     tid = BADTID;
     for (i = 1; i < nargs; i++)
     {
+<<<<<<< HEAD
         if (0 == strcmp(args[i], "-t"))
+=======
+        if (0 == strncmp(args[i], "-t", 2))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             if (i + 1 < nargs)
             {
@@ -81,6 +89,7 @@ shellcmd xsh_memstat(int nargs, char *args[])
                 return 1;
             }
         }
+<<<<<<< HEAD
         else if (0 == strcmp(args[i], "-r"))
         {
             print |= PRINT_REGION;
@@ -90,6 +99,17 @@ shellcmd xsh_memstat(int nargs, char *args[])
             print |= PRINT_KERNEL;
         }
         else if (0 == strcmp(args[i], "-q"))
+=======
+        else if (0 == strncmp(args[i], "-r", 2))
+        {
+            print |= PRINT_REGION;
+        }
+        else if (0 == strncmp(args[i], "-k", 2))
+        {
+            print |= PRINT_KERNEL;
+        }
+        else if (0 == strncmp(args[i], "-q", 2))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             print &= ~(PRINT_DEFAULT);
         }
@@ -278,7 +298,11 @@ static void printFreeList(struct memblock *base, char *ident)
     printf("-----------  --------\n");
     for (block = base->next; block != NULL; block = block->next)
     {
+<<<<<<< HEAD
         printf("0x%08lX   %8u\n", (ulong)block, block->length);
+=======
+        printf("0x%08X   %8d\n", block, block->length);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     }
     printf("\n");
 }

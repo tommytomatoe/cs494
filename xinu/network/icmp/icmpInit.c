@@ -1,8 +1,16 @@
 /**
  * @file icmpInit.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <stddef.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <mailbox.h>
 #include <icmp.h>
 #include <stdlib.h>

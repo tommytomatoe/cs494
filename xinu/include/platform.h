@@ -84,9 +84,14 @@ extern struct platform platform;
 #define UART_DLL_WRT350N    0x29
 
 /* Used internally by create()  */
+<<<<<<< HEAD
 void *setupStack(void *stackaddr, void *procaddr,
                  void *retaddr, uint nargs, va_list ap);
 
 int platforminit(void);
+=======
+void *arch_setup_stack(void *stackaddr, void *procaddr,
+                       void *retaddr, uint nargs, va_list ap);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 #endif                          /* _PLATFORM_H_ */

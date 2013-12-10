@@ -1,13 +1,23 @@
 /**
  * @file lock.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009, 2013.  All rights reserved. */
 
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <thread.h>
+#include <semaphore.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <monitor.h>
 
 /**
  * @ingroup monitors
  *
+<<<<<<< HEAD
  * Lock a monitor.
  *
  * If no thread owns the monitor, its owner is set to the current thread and its
@@ -30,6 +40,17 @@
 syscall lock(monitor mon)
 {
     struct monent *monptr;
+=======
+ * Current thread attempts to grab the lock on a monitor.
+ * If another thread does not hold the lock the current thread owns the lock
+ * and increases the monitor's count by one. Otherwise, the thread waits.
+ * @param mon  target monitor
+ * @return OK on success, SYSERR on failure
+ */
+syscall lock(monitor mon)
+{
+    register struct monent *monptr;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     irqmask im;
 
     im = disable();
@@ -44,7 +65,11 @@ syscall lock(monitor mon)
     /* if no thread owns the lock, the current thread claims it */
     if (NOOWNER == monptr->owner)
     {
+<<<<<<< HEAD
         monptr->owner = thrcurrent;     /* current thread now owns the lock  */
+=======
+        monptr->owner = thrcurrent;     /* current thread now owns the lock    */
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         (monptr->count)++;      /* add 1 "lock" to the monitor's count */
         wait(monptr->sem);      /* this thread owns the semaphore      */
     }

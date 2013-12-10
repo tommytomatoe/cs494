@@ -1,5 +1,9 @@
 /*
  * @file icmp.h
+<<<<<<< HEAD
+=======
+ *
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
@@ -142,14 +146,27 @@ struct icmpEcho
 
 struct icmpEchoQueue
 {
+<<<<<<< HEAD
     tid_typ tid;        /**< ID of thread that send the ICMP Echo Request.  */
     int head;           /**< Position to store next ICMP Echo Reply.        */
     int tail;           /**< Position of next ICMP Echo Reply to get.       */
     struct packet *pkts[NPINGHOLD]; /*< Stored ICMP Echo Replies.           */
+=======
+    tid_typ tid;
+    int head;
+    int tail;
+    struct packet *pkts[NPINGHOLD];
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 };
 
 extern struct icmpEchoQueue echotab[NPINGQUEUE];
 
+<<<<<<< HEAD
+=======
+/* Variable to indicate trace route is active */
+extern bool tracing;
+
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 /* ICMP echo request queue */
 extern mailbox icmpqueue;
 
@@ -157,6 +174,7 @@ extern mailbox icmpqueue;
 thread icmpDaemon(void);
 syscall icmpInit(void);
 syscall icmpRecv(struct packet *);
+<<<<<<< HEAD
 syscall icmpDestUnreach(const struct packet *, uchar);
 syscall icmpEchoRequest(struct netaddr *dst, ushort id, ushort seq);
 syscall icmpEchoReply(struct packet *request);
@@ -164,5 +182,13 @@ syscall icmpRedirect(struct packet *, uchar code, struct rtEntry *);
 syscall icmpSend(struct packet *pkt, uchar type, uchar code,
                  uint datalen, struct netaddr *src, struct netaddr *dst);
 syscall icmpTimeExceeded(struct packet *, uchar code);
+=======
+syscall icmpDestUnreach(const struct packet *, int);
+syscall icmpEchoReply(struct packet *, struct netif *);
+syscall icmpEchoRequest(struct netaddr *dst, ushort id, ushort seq);
+syscall icmpRedirect(struct packet *, int code, struct rtEntry *);
+syscall icmpSend(struct packet *, uchar, uchar, int, struct netaddr *);
+syscall icmpTimeExceeded(struct packet *, int code);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 #endif                          /* _NET_H_ */

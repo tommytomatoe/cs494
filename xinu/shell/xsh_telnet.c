@@ -48,7 +48,11 @@ shellcmd xsh_telnet(int nargs, char *args[])
     for (i = 1; i < nargs; i++)
     {
         /* Help */
+<<<<<<< HEAD
         if (0 == strcmp(args[i], "--help"))
+=======
+        if (0 == strncmp(args[i], "--help", 7))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             usage(args[0]);
             return 0;

@@ -1,9 +1,12 @@
 # Object files
 *.o
 
+<<<<<<< HEAD
 # Dependency files
 *.d
 
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 # Libraries
 *.lib
 *.a

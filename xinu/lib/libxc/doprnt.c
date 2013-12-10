@@ -12,6 +12,7 @@
 static void ulong_to_string(unsigned long num, char *str,
                             unsigned int base, bool alt_digits);
 
+<<<<<<< HEAD
 enum integer_size {
     SHORT_SHORT_SIZE,
     SHORT_SIZE,
@@ -19,11 +20,14 @@ enum integer_size {
     LONG_SIZE
 };
 
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 /**
  * @ingroup libxc
  *
  * Write formatted output.
  *
+<<<<<<< HEAD
  * This is a simplified implementation, and not all standard conversion
  * specifications are supported.  A conversion specification (a sequence
  * beginning with the @c '%' character) is divided into 5 parts, the first four
@@ -66,6 +70,26 @@ enum integer_size {
  *      - @c "\%c"  to format a single character
  *      - @c "\%s"  to format a null-terminated string, or "(null)" for a @c NULL pointer
  *      - @c "\%\%" to format a literal percent sign
+=======
+ * This is a minimal implementation and not all standard features are supported.
+ * The supported conversion specifications include:
+ *
+ * - @c \%d to print an <code>int</code> in decimal.
+ * - @c \%b to print an <code>unsigned int</code> in binary.
+ * - @c \%o to print an <code>unsigned int</code> in octal.
+ * - @c \%u to print an <code>unsigned int</code> in decimal.
+ * - @c \%x to print an <code>unsigned int</code> in lower case hex.
+ * - @c \%X to print an <code>unsigned int</code> in upper case hex.
+ * - @c \%c to print a single character.
+ * - @c \%s to print a null-terminated string, or "(null)" for a @c NULL pointer.
+ * - @c \%\% to print a literal percent sign.
+ * - @c '-' flag to specify left-justification.
+ * - @c '0' flag to specify zero padding.
+ * - Minimum field width specification.
+ * - @c '.PREC' optional precision to set maximum field length.
+ * - @c '*' flag to specify that the minimum field width or precision is specified
+ *   as an @c int argument rather than literally in the format string.
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  *
  * If a feature is not mentioned above, assume it is not supported.
  *
@@ -86,6 +110,7 @@ enum integer_size {
 int _doprnt(const char *fmt, va_list ap,
             int (*putc_func) (int, int), int putc_arg)
 {
+<<<<<<< HEAD
     int chars_written = 0;      /* Number of characters written so far  */
 
     int i;
@@ -114,10 +139,30 @@ int _doprnt(const char *fmt, va_list ap,
 
     const char *spec_start;     /* Start of this format specifier.      */
 
+=======
+    int i;
+    char *str;                  /* Running pointer in string            */
+    char string[LONG_BITS + 1]; /* The string str points to this output */
+
+    /*  from number conversion              */
+    int length;                 /* Length of string "str"               */
+    char fill;                  /* Fill character (' ' or '0')          */
+    int leftjust;               /* 0 = right-justified, else left-just  */
+    int fmax, fmin;             /* Field specifications % MIN . MAX s   */
+    int leading;                /* No. of leading/trailing fill chars   */
+    char sign;                  /* Set to '-' for negative decimals     */
+    long larg;
+    int chars_written = 0;      /* Number of characters written so far  */
+    const char *spec_start;     /* Start of this format specifier.      */
+    bool alt_digits;            /* Use alternate digits?                */
+    unsigned int base;          /* Base to use for printing.            */
+
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     while (*fmt != '\0')
     {
         if (*fmt == '%' && *++fmt != '%')
         {
+<<<<<<< HEAD
             /* Parsing a conversion specification ---
              * Consists of 5 parts, as noted in comments below  */
 
@@ -156,10 +201,38 @@ int _doprnt(const char *fmt, va_list ap,
             /*************************************
              * 2. Optional minimum field width   *
              *************************************/
+=======
+            /* Conversion specification.  */
+            spec_start = fmt - 1;
+
+            /* Check for "%-..." == Left-justified output */
+            leftjust = 0;
+            if (*fmt == '-')
+            {
+                leftjust = 1;
+                fmt++;
+            }
+
+            /* Allow for zero-filled numeric outputs ("%0...") */
+            fill = ' ';
+            if (*fmt == '0')
+            {
+                /* '-' overrides '0' */
+                if (!leftjust)
+                {
+                    fill = '0';
+                }
+                fmt++;
+            }
+
+            /* Allow for minimum field width specifier for %d,u,x,o,c,s */
+            /* Also allow %* for variable width (%0* as well)       */
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             fmin = 0;
             if (*fmt == '*')
             {
                 fmin = va_arg(ap, int);
+<<<<<<< HEAD
                 if (fmin < 0)
                 {
                     /* C99 7.19.6.1:  A negative field width argument is taken
@@ -167,6 +240,8 @@ int _doprnt(const char *fmt, va_list ap,
                     fmin = -fmin;
                     leftjust = TRUE;
                 }
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                 fmt++;
             }
             else
@@ -179,6 +254,7 @@ int _doprnt(const char *fmt, va_list ap,
                 }
             }
 
+<<<<<<< HEAD
             /* C99 7.19.6.1:  If both the '0' and '-' flags appear, the '0'
              * flag is ignored.  */
             if (leftjust)
@@ -190,11 +266,16 @@ int _doprnt(const char *fmt, va_list ap,
              * 3. Optional precision             *
              *************************************/
             prec = -1;
+=======
+            /* Allow optional precision (e.g. maximum string width for %s) */
+            fmax = 0;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             if (*fmt == '.')
             {
                 fmt++;
                 if (*fmt == '*')
                 {
+<<<<<<< HEAD
                     prec = va_arg(ap, int);
                     fmt++;
                     /* C99 7.19.6.1:  A negative precision argument is taken as
@@ -329,6 +410,78 @@ int _doprnt(const char *fmt, va_list ap,
                      * to 'unsigned int' when passed as variadic arguments.  */
                     ularg = va_arg(ap, unsigned int);
                 }
+=======
+                    fmax = va_arg(ap, int);
+                    fmt++;
+                }
+                else
+                {
+                    while ('0' <= *fmt && *fmt <= '9')
+                    {
+                        fmax *= 10;
+                        fmax += (*fmt - '0');
+                        fmt++;
+                    }
+                }
+            }
+
+            str = string;
+            sign = '+';    /* sign == '-' for negative decimal */
+            alt_digits = FALSE;
+            base = 0;
+            switch (*fmt++) /* Switch on the format specifier character. */
+            {
+            case 'c':
+                string[0] = va_arg(ap, int);
+                string[1] = '\0';
+                fmax = 0;
+                fill = ' ';
+                break;
+
+            case 's':
+                str = va_arg(ap, char *);
+                if (NULL == str)
+                {
+                    str = "(null)";
+                }
+                fill = ' ';
+                break;
+
+            case 'd':
+                larg = va_arg(ap, int);
+                if (larg < 0)
+                {
+                    sign = '-';
+                    larg = -larg;
+                }
+                base = 10;
+                break;
+
+            case 'u':
+                larg = va_arg(ap, unsigned int);
+                base = 10;
+                break;
+
+            case 'o':
+                larg = va_arg(ap, unsigned int);
+                base = 8;
+                break;
+
+            case 'X':
+                larg = va_arg(ap, unsigned int);
+                base = 16;
+                alt_digits = TRUE;
+                break;
+
+            case 'x':
+                larg = va_arg(ap, unsigned int);
+                base = 16;
+                break;
+
+            case 'b':
+                larg = va_arg(ap, unsigned int);
+                base = 2;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                 break;
 
             default:
@@ -340,6 +493,7 @@ int _doprnt(const char *fmt, va_list ap,
                 goto literal;
             }
 
+<<<<<<< HEAD
             /* Advance past format specifier character.  */
             fmt++;
 
@@ -406,15 +560,36 @@ int _doprnt(const char *fmt, va_list ap,
                 for (i = 0; i < len_padding; i++)
                 {
                     if ((*putc_func) (pad_char, putc_arg) == EOF)
-                    {
-                        return EOF;
-                    }
-                    chars_written++;
-                }
+=======
+            if (base != 0)
+            {
+                /* Print a number to the temporary buffer.  */
+                ulong_to_string(larg, str, base, alt_digits);
+                fmax = 0;
             }
 
-            /* Output sign if needed.  */
-            if (sign != '\0')
+            length = strlen(str);
+
+            leading = 0;
+            if (fmax != 0 || fmin != 0)
+            {
+                if (fmax != 0)
+                {
+                    if (length > fmax)
+                    {
+                        length = fmax;
+                    }
+                }
+                if (fmin != 0)
+                {
+                    leading = fmin - length;
+                }
+                if (sign == '-')
+                {
+                    --leading;
+                }
+            }
+            if (sign == '-' && fill == '0')
             {
                 if ((*putc_func) (sign, putc_arg) == EOF)
                 {
@@ -422,6 +597,33 @@ int _doprnt(const char *fmt, va_list ap,
                 }
                 chars_written++;
             }
+            if (leftjust == 0)
+            {
+                for (i = 0; i < leading; i++)
+                {
+                    if ((*putc_func) (fill, putc_arg) == EOF)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
+                    {
+                        return EOF;
+                    }
+                    chars_written++;
+                }
+            }
+<<<<<<< HEAD
+
+            /* Output sign if needed.  */
+            if (sign != '\0')
+=======
+            if (sign == '-' && fill == ' ')
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
+            {
+                if ((*putc_func) (sign, putc_arg) == EOF)
+                {
+                    return EOF;
+                }
+                chars_written++;
+            }
+<<<<<<< HEAD
 
             /* Output any zeroes needed because of precision specified in
              * integer conversions.  */
@@ -436,6 +638,9 @@ int _doprnt(const char *fmt, va_list ap,
 
             /* Output any needed characters from str.  */
             for (i = 0; i < len_str; i++)
+=======
+            for (i = 0; i < length; i++)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             {
                 if ((*putc_func) (str[i], putc_arg) == EOF)
                 {
@@ -443,6 +648,7 @@ int _doprnt(const char *fmt, va_list ap,
                 }
                 chars_written++;
             }
+<<<<<<< HEAD
 
             /* If left-justified, pad on right.  */
             if (leftjust)
@@ -450,6 +656,13 @@ int _doprnt(const char *fmt, va_list ap,
                 for (i = 0; i < len_padding; i++)
                 {
                     if ((*putc_func) (pad_char, putc_arg) == EOF)
+=======
+            if (leftjust != 0)
+            {
+                for (i = 0; i < leading; i++)
+                {
+                    if ((*putc_func) (fill, putc_arg) == EOF)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                     {
                         return EOF;
                     }
@@ -508,14 +721,19 @@ static void ulong_to_string(unsigned long num, char *str,
      * reverse order before copying it to @str.  */
     digits = (alt_digits) ? digits_uc : digits_lc;
     temp[0] = '\0';
+<<<<<<< HEAD
     i = 1;
 #if ALWAYS_USE_DIVISION
+=======
+#ifdef ALWAYS_USE_DIVISION
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     if (TRUE)
 #else
     if (base_to_nbits[base] == 0)
 #endif
     {
         /* Use modulo operation and integral division.  */
+<<<<<<< HEAD
         for (;;)
         {
             temp[i] = digits[num % base];
@@ -525,12 +743,19 @@ static void ulong_to_string(unsigned long num, char *str,
                 break;
             }
             i++;
+=======
+        for (i = 1; num != 0; i++)
+        {
+            temp[i] = digits[num % base];
+            num /= base;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         }
     }
     else
     {
         /* Use masking and shifting (works when base is a power of 2) */
         unsigned char shift = base_to_nbits[base];
+<<<<<<< HEAD
         unsigned long mask = (1UL << shift) - 1;
         for (;;)
         {
@@ -541,12 +766,35 @@ static void ulong_to_string(unsigned long num, char *str,
                 break;
             }
             i++;
+=======
+        unsigned long mask = (1 << shift) - 1;
+        for (i = 1; num != 0; i++)
+        {
+            temp[i] = digits[num & mask];
+            num >>= shift;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         }
     }
 
     /* Reverse string and copy it to @str.  */
+<<<<<<< HEAD
     do
     {
         *str++ = temp[i--];
     } while (i >= 0);
+=======
+
+    i--;
+    if (i == 0)
+    {
+        /* If no digits were printed, then the number was 0 and we should at
+         * least print a 0.  */
+        temp[++i] = '0';
+    }
+
+    while (i >= 0)
+    {
+        *str++ = temp[i--];
+    }
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 }

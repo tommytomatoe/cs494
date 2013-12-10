@@ -14,6 +14,10 @@
 #include <memory.h>
 #include <bufpool.h>
 #include <mips.h>
+<<<<<<< HEAD
+=======
+#include <platform.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <thread.h>
 #include <tlb.h>
 #include <queue.h>
@@ -27,14 +31,28 @@
 #include <string.h>
 #include <syscall.h>
 #include <safemem.h>
+<<<<<<< HEAD
 #include <platform.h>
+=======
+#include <version.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 #ifdef WITH_USB
 #  include <usb_subsystem.h>
 #endif
 
+<<<<<<< HEAD
 /* Function prototypes */
 extern thread main(void);       /* main is the first thread created    */
+=======
+/* Linker provides start and end of image */
+extern void _start(void);       /* start of Xinu code                  */
+
+/* Function prototypes */
+extern void main(void);         /* main is the first thread created    */
+extern void xdone(void);        /* system "shutdown" procedure         */
+extern int platforminit(void);  /* determines platform settings        */
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 static int sysinit(void);       /* intializes system structures        */
 
 /* Declarations of major kernel variables */
@@ -67,6 +85,7 @@ struct platform platform;       /* Platform specific configuration     */
  */
 void nulluser(void)
 {
+<<<<<<< HEAD
     /* Platform-specific initialization  */
     platforminit();
 
@@ -80,6 +99,63 @@ void nulluser(void)
     ready(create(main, INITSTK, INITPRIO, "MAIN", 0), RESCHED_YES);
 
     /* null thread has nothing else to do but cannot exit  */
+=======
+    platforminit();
+    sysinit();
+
+    kprintf(VERSION);
+    kprintf("\r\n\r\n");
+
+#ifdef DETAIL
+    /* Output detected platform. */
+    kprintf("Processor identification: 0x%08X\r\n", cpuid);
+    kprintf("Detected platform as: %s, %s\r\n\r\n",
+            platform.family, platform.name);
+#endif
+
+    /* Output Xinu memory layout */
+    kprintf("%10d bytes physical memory.\r\n",
+            (ulong)platform.maxaddr - (ulong)platform.minaddr);
+#ifdef DETAIL
+    kprintf("           [0x%08X to 0x%08X]\r\n",
+            (ulong)platform.minaddr, (ulong)(platform.maxaddr - 1));
+#endif
+    kprintf("%10d bytes reserved system area.\r\n",
+            (ulong)_start - (ulong)platform.minaddr);
+#ifdef DETAIL
+    kprintf("           [0x%08X to 0x%08X]\r\n",
+            (ulong)platform.minaddr, (ulong)_start - 1);
+#endif
+
+    kprintf("%10d bytes Xinu code.\r\n", (ulong)&_end - (ulong)_start);
+#ifdef DETAIL
+    kprintf("           [0x%08X to 0x%08X]\r\n",
+            (ulong)_start, (ulong)&_end - 1);
+#endif
+
+    kprintf("%10d bytes stack space.\r\n", (ulong)memheap - (ulong)&_end);
+#ifdef DETAIL
+    kprintf("           [0x%08X to 0x%08X]\r\n",
+            (ulong)&_end, (ulong)memheap - 1);
+#endif
+
+    kprintf("%10d bytes heap space.\r\n",
+            (ulong)platform.maxaddr - (ulong)memheap);
+#ifdef DETAIL
+    kprintf("           [0x%08X to 0x%08X]\r\n\r\n",
+            (ulong)memheap, (ulong)platform.maxaddr - 1);
+#endif
+    kprintf("\r\n");
+
+    open(CONSOLE, SERIAL0);
+    /* enable interrupts here */
+    enable();
+
+    ready(create
+          ((void *)main, INITSTK, INITPRIO, "MAIN", 2, 0,
+           NULL), RESCHED_YES);
+
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     while (TRUE)
     {
 #ifndef DEBUG
@@ -96,7 +172,15 @@ static int sysinit(void)
 {
     int i;
     struct thrent *thrptr;      /* thread control block pointer  */
+<<<<<<< HEAD
     struct memblock *pmblock;   /* memory block pointer          */
+=======
+    device *devptr;             /* device entry pointer          */
+    struct sement *semptr;      /* semaphore entry pointer       */
+    struct monent *monptr;      /* monitor entry pointer         */
+    struct memblock *pmblock;   /* memory block pointer          */
+    struct bfpentry *bfpptr;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     /* Initialize system variables */
     /* Count this NULLTHREAD as the first thread in the system. */
@@ -131,20 +215,40 @@ static int sysinit(void)
     /* Initialize semaphores */
     for (i = 0; i < NSEM; i++)
     {
+<<<<<<< HEAD
         semtab[i].state = SFREE;
         semtab[i].queue = queinit();
+=======
+        semptr = &semtab[i];
+        semptr->state = SFREE;
+        semptr->count = 0;
+        semptr->queue = queinit();
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     }
 
     /* Initialize monitors */
     for (i = 0; i < NMON; i++)
     {
+<<<<<<< HEAD
         montab[i].state = MFREE;
+=======
+        monptr = &montab[i];
+        monptr->state = SFREE;
+        monptr->count = 0;
+        monptr->owner = NOOWNER;
+        monptr->sem = NULL;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     }
 
     /* Initialize buffer pools */
     for (i = 0; i < NPOOL; i++)
     {
+<<<<<<< HEAD
         bfptab[i].state = BFPFREE;
+=======
+        bfpptr = &bfptab[i];
+        bfpptr->state = BFPFREE;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     }
 
     /* initialize thread ready list */
@@ -193,7 +297,15 @@ static int sysinit(void)
 #if NDEVS
     for (i = 0; i < NDEVS; i++)
     {
+<<<<<<< HEAD
         devtab[i].init((device*)&devtab[i]);
+=======
+        if (!isbaddev(i))
+        {
+            devptr = (device *)&devtab[i];
+            (devptr->init) (devptr);
+        }
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     }
 #endif
 

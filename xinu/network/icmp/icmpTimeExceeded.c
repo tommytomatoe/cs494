@@ -1,5 +1,9 @@
 /**
  * @file icmpTimeExceeded.c
+<<<<<<< HEAD
+=======
+ *
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
@@ -16,6 +20,7 @@
  * @param code      ICMP destination unreachable code number
  * @return OK if packet was sent, otherwise SYSERR
  */
+<<<<<<< HEAD
 syscall icmpTimeExceeded(struct packet *unreached, uchar code)
 {
     struct packet *pkt;
@@ -24,6 +29,15 @@ syscall icmpTimeExceeded(struct packet *unreached, uchar code)
     struct netaddr dst;
     int result;
     int ihl;
+=======
+syscall icmpTimeExceeded(struct packet *unreached, int code)
+{
+    struct packet *pkt = NULL;
+    struct ipv4Pkt *ip = NULL;
+    struct netaddr dst;
+    int result = OK;
+    int ihl = 0;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     ICMP_TRACE("Time exceeded (%d)", code);
     pkt = netGetbuf();
@@ -51,9 +65,13 @@ syscall icmpTimeExceeded(struct packet *unreached, uchar code)
     pkt->len += 4;
     *((ulong *)pkt->curr) = 0;
 
+<<<<<<< HEAD
     src.type = 0;
 
     result = icmpSend(pkt, ICMP_TIMEEXCD, code, pkt->len, &src, &dst);
+=======
+    result = icmpSend(pkt, ICMP_TIMEEXCD, code, pkt->len, &dst);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     netFreebuf(pkt);
     return result;

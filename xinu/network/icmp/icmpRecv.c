@@ -1,15 +1,30 @@
 /**
  * @file icmpRecv.c
+<<<<<<< HEAD
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 
 #include <icmp.h>
 #include <clock.h>
+=======
+ *
+ */
+/* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
+
+#include <stddef.h>
+#include <icmp.h>
+#include <clock.h>
+#include <ethernet.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 #include <interrupt.h>
 #include <ipv4.h>
 #include <mailbox.h>
 #include <thread.h>
 #include <network.h>
+<<<<<<< HEAD
+=======
+#include <string.h>
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 /**
  * @ingroup icmp
@@ -20,9 +35,17 @@
  */
 syscall icmpRecv(struct packet *pkt)
 {
+<<<<<<< HEAD
     struct icmpPkt *icmp;
     struct icmpEcho *echo;
     int id;
+=======
+    struct icmpPkt *icmp = NULL;
+    struct icmpEcho *echo = NULL;
+    struct icmpEchoQueue *eq = NULL;
+    int id = 0, i = 0;
+    irqmask im;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     /* Error check pointers */
     if (NULL == pkt)
@@ -40,9 +63,12 @@ syscall icmpRecv(struct packet *pkt)
         id = net2hs(echo->id);
         if ((id >= 0) && (id < NTHREAD))
         {
+<<<<<<< HEAD
             int i;
             irqmask im;
 
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             im = disable();
 
             echo->arrivcyc = clkcount();
@@ -51,8 +77,11 @@ syscall icmpRecv(struct packet *pkt)
 
             for (i = 0; i < NPINGQUEUE; i++)
             {
+<<<<<<< HEAD
                 struct icmpEchoQueue *eq;
 
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                 eq = &echotab[i];
                 if (id == eq->tid)
                 {

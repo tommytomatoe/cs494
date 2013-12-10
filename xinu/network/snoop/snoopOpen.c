@@ -47,7 +47,11 @@ int snoopOpen(struct snoop *cap, char *devname)
     }
 
     /* Attach capture to all running network interfaces for devname "ALL" */
+<<<<<<< HEAD
     if (0 == strcmp(devname, "ALL"))
+=======
+    if (0 == strncmp(devname, "ALL", 4))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         im = disable();
 #if NNETIF

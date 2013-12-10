@@ -30,6 +30,7 @@ int vlanStat(void)
     printf("VLAN Switch Status:\n");
 
     switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL0, &result);
+<<<<<<< HEAD
     printf("\tControl %d : %02lX, ", SWT_REG_VLAN_CONTROL0, result);
     switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL1, &result);
     printf("%d : %02lX, ", SWT_REG_VLAN_CONTROL1, result);
@@ -41,6 +42,19 @@ int vlanStat(void)
     printf("%d : %02lX, ", SWT_REG_VLAN_CONTROL4, result);
     switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL5, &result);
     printf("%d : %02lX\n", SWT_REG_VLAN_CONTROL5, result);
+=======
+    printf("\tControl %d : %02X, ", SWT_REG_VLAN_CONTROL0, result);
+    switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL1, &result);
+    printf("%d : %02X, ", SWT_REG_VLAN_CONTROL1, result);
+    switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL2, &result);
+    printf("%d : %02X, ", SWT_REG_VLAN_CONTROL2, result);
+    switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL3, &result);
+    printf("%d : %02X, ", SWT_REG_VLAN_CONTROL3, result);
+    switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL4, &result);
+    printf("%d : %02X, ", SWT_REG_VLAN_CONTROL4, result);
+    switchReadReg(mdio, SWT_PAGE_VLAN, SWT_REG_VLAN_CONTROL5, &result);
+    printf("%d : %02X\n", SWT_REG_VLAN_CONTROL5, result);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
     printf("\tVLAN Table\n");
     for (table = 0; table < SWT_VLAN_TABLEMAX; table++)

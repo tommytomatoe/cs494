@@ -49,7 +49,11 @@ shellcmd xsh_memdump(int nargs, char *args[])
     ushort arg;
 
     /* Output help, if '--help' argument was supplied */
+<<<<<<< HEAD
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s [-C] [-f] <START> <LENGTH>\n\n", args[0]);
         printf("Description:\n");
@@ -75,11 +79,19 @@ shellcmd xsh_memdump(int nargs, char *args[])
 
     for (arg = 1; arg < nargs; arg++)
     {
+<<<<<<< HEAD
         if (0 == strcmp(args[arg], "-C"))
         {
             canon = TRUE;
         }
         else if (0 == strcmp(args[arg], "-f"))
+=======
+        if (0 == strncmp(args[arg], "-C", 2))
+        {
+            canon = TRUE;
+        }
+        else if (0 == strncmp(args[arg], "-f", 2))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             force = TRUE;
         }

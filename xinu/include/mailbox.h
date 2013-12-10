@@ -1,5 +1,9 @@
 /**
  * @file mailbox.h
+<<<<<<< HEAD
+=======
+ *
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
  */
 /* Embedded Xinu, Copyright (C) 2009.  All rights reserved. */
 

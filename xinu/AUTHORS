@@ -25,7 +25,11 @@ under the direction of Dr. Dennis Brylow.
 Blattner, Aaron Gember, Paul Hinze, Kyle Jackson, Adam Koehler, Zachary Lund,
 Steve Luppi, Dan Mahoney, Adam Mallen, Mohammad "Meraj" Molla, Justin Picotte,
 Joe Pintozzi, Justin Rawson, Michael Schultz, Paul Spillane, Anthony Stassi,
+<<<<<<< HEAD
 Kyle Thurow, Tyler Much, Farzeen Harunani, and Eric Biggers.
+=======
+and Kyle Thurow.
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 Dr. Paul Ruth has been instrumental in porting Embedded Xinu to the Qemu
 virtual platform.

@@ -31,7 +31,11 @@ int snoopPrintArp(struct arpPkt *arp, char verbose)
 
     if (verbose >= SNOOP_VERBOSE_ONE)
     {
+<<<<<<< HEAD
         printf(" ----- ARP Header -----\n");
+=======
+        printf(" ----- ARP Header -----\n", "");
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         if (verbose >= SNOOP_VERBOSE_TWO)
         {
             switch (net2hs(arp->hwtype))

@@ -84,7 +84,11 @@ shellcmd xsh_voip(int nargs, char *args[])
                 args[0]);
         return SYSERR;
     }
+<<<<<<< HEAD
     else if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    else if (nargs == 2 && strncmp(args[1], "--help", 6) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf
             ("\nUsage: %s [-p <rx port> <tx port>] [-s] [serial] [localhost] [IP address]\n",
@@ -106,11 +110,19 @@ shellcmd xsh_voip(int nargs, char *args[])
     {
         for (i = 1; i < nargs; i++)
         {
+<<<<<<< HEAD
             if (strcmp(args[i], "-s") == 0)
             {
                 check = CHECK_SEQ;
             }
             else if (strcmp(args[i], "-t") == 0)
+=======
+            if (strncmp(args[i], "-s", 2) == 0)
+            {
+                check = CHECK_SEQ;
+            }
+            else if (strncmp(args[i], "-t", 2) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             {
                 im = disable();
                 /* Scan threadtab for voip process */
@@ -122,7 +134,11 @@ shellcmd xsh_voip(int nargs, char *args[])
                     {
                         continue;
                     }
+<<<<<<< HEAD
                     if (strcmp(thrptr->name, T_NAME_SEND) == 0)
+=======
+                    if (strncmp(thrptr->name, T_NAME_SEND, 9) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
                     {
                         printf("Signaling voip thread at tid %d.\n", i);
                         send(i, TOG_SAMP);
@@ -131,7 +147,11 @@ shellcmd xsh_voip(int nargs, char *args[])
                 restore(im);
                 return OK;
             }
+<<<<<<< HEAD
             else if (strcmp(args[i], "-p") == 0)
+=======
+            else if (strncmp(args[i], "-p", 2) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             {
                 if ((i + 2) < nargs)
                 {
@@ -147,11 +167,19 @@ shellcmd xsh_voip(int nargs, char *args[])
                     return SYSERR;
                 }
             }
+<<<<<<< HEAD
             else if (strcmp(args[i], "serial") == 0)
             {
                 mode = MODE_SERIAL;
             }
             else if (strcmp(args[i], "localhost") == 0)
+=======
+            else if (strncmp(args[i], "serial", 6) == 0)
+            {
+                mode = MODE_SERIAL;
+            }
+            else if (strncmp(args[i], "localhost", 9) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             {
                 mode = MODE_LOCAL;
             }
@@ -179,7 +207,11 @@ shellcmd xsh_voip(int nargs, char *args[])
             continue;
         }
 
+<<<<<<< HEAD
         if (0 == strcmp(thrptr->name, "SHELL1"))
+=======
+        if (0 == strncmp(thrptr->name, "SHELL1", 6))
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         {
             kill(i);
         }

@@ -10,7 +10,11 @@ void etherStat(ushort minor)
 {
     const struct ether *ethptr = &ethertab[minor];
 
+<<<<<<< HEAD
     printf("eth%u:\n", minor);
+=======
+    printf("eth%d:\n", minor);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     printf("  MAC Address           %02X:%02X:%02X:%02X:%02X:%02X\n",
            ethptr->devAddress[0], ethptr->devAddress[1],
            ethptr->devAddress[2], ethptr->devAddress[3],
@@ -32,11 +36,19 @@ void etherStat(ushort minor)
             break;
     }
 
+<<<<<<< HEAD
     printf("  Rx packets in queue   %u\n",   ethptr->icount);
     printf("  Rx errors             %lu\n",  ethptr->errors);
     printf("  Rx overruns           %u\n",   ethptr->ovrrun);
     printf("  Rx USB transfers done %lu\n",  ethptr->rxirq);
     printf("  Tx USB transfers done %lu\n",  ethptr->txirq);
+=======
+    printf("  Rx packets in queue   %u\n", ethptr->icount);
+    printf("  Rx errors             %u\n", ethptr->errors);
+    printf("  Rx overruns           %u\n", ethptr->ovrrun);
+    printf("  Rx USB transfers done %u\n", ethptr->rxirq);
+    printf("  Tx USB transfers done %u\n", ethptr->txirq);
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 }
 
 void etherThroughput(ushort minor)

@@ -21,7 +21,11 @@ int vlanStat(void);
 shellcmd xsh_vlanstat(int nargs, char *args[])
 {
     /* Output help, if '--help' argument was supplied */
+<<<<<<< HEAD
     if (nargs == 2 && strcmp(args[1], "--help") == 0)
+=======
+    if (nargs == 2 && strncmp(args[1], "--help", 7) == 0)
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     {
         printf("Usage: %s\n\n", args[0]);
         printf("Description\n");

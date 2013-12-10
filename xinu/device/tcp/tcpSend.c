@@ -126,9 +126,14 @@ int tcpSend(struct tcb *tcbptr, uchar ctrl, uint seqnum,
 
     if (result == OK)
     {
+<<<<<<< HEAD
         TCP_TRACE("SENT <C=0x%02X><S=%u><A=%u><dl=%u><w=%u>",
                       ctrl, seqnum, acknum, datalen, window)
     }
+=======
+    TCP_TRACE("SENT <C=0x%02X><S=%u><A=%u><dl=%u><w=%u>",
+                  ctrl, seqnum, acknum, datalen, window)}
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     else
     {
         TCP_TRACE("FAILED to send <C=0x%02X><S=%u><A=%u><dl=%u><w=%u>",

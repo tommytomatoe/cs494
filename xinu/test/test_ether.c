@@ -9,7 +9,10 @@
 #include <ether.h>
 #include <interrupt.h>
 
+<<<<<<< HEAD
 #if NETHER
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 static int ethn_test(bool verbose, int dev);
 
 #define ETH_ADDR_LEN 6
@@ -24,7 +27,10 @@ struct etherGram
     ushort type_len;            /* EthernetII type/Ethernet length */
     char payload[1];            /* Payload data */
 };
+<<<<<<< HEAD
 #endif /* NETHER */
+=======
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 
 /**
  * Test for ethernet driver packet acceptance.
@@ -57,7 +63,11 @@ thread test_ether(bool verbose)
     return OK;
 }
 
+<<<<<<< HEAD
 #if NETHER
+=======
+#ifdef NETHER
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
 static int ethn_test(bool verbose, int devminor)
 {
     bool passed = TRUE;

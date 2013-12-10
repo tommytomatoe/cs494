@@ -45,7 +45,11 @@ thread httpServerKickStart(int netDescrp)
         return SYSERR;
     }
 
+<<<<<<< HEAD
     sprintf(thrname, "XWeb_%d", (devtab[tcpdev].minor));
+=======
+    sprintf(thrname, "XWeb_%d\0", (devtab[tcpdev].minor));
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     tid = create((void *)httpServer, INITSTK, INITPRIO, thrname,
                  2, netDescrp, tcpdev);
     ready(tid, RESCHED_NO);
@@ -64,9 +68,17 @@ thread httpServer(int netDescrp, int gentcpdev)
     tid_typ shelltid, killtid;
     int tcpdev, httpdev;
     char thrname[TNMLEN];
+<<<<<<< HEAD
     struct netaddr *host;
     struct netif *nif;
 
+=======
+    bool noGenHTTP;
+    struct netaddr *host;
+    struct netif *nif;
+
+    noGenHTTP = FALSE;
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     wait(maxhttp);              /* Make sure max HTTP threads not reached */
 
     /* Allocate HTTP device */
@@ -104,7 +116,11 @@ thread httpServer(int netDescrp, int gentcpdev)
     }
 
     /* Create web shell */
+<<<<<<< HEAD
     sprintf(thrname, "XWebShell_%d", (devtab[tcpdev].minor));
+=======
+    sprintf(thrname, "XWebShell_%d\0", (devtab[tcpdev].minor));
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     shelltid = create((void *)shell, INITSTK, INITPRIO, thrname, 3,
                       httpdev, httpdev, DEVNULL);
     if (isbadtid(shelltid))
@@ -116,7 +132,11 @@ thread httpServer(int netDescrp, int gentcpdev)
     }
 
     /* Spawn thread that will wait for kill httpserver thread signal */
+<<<<<<< HEAD
     sprintf(thrname, "XWebKillerD_%d", (devtab[tcpdev].minor));
+=======
+    sprintf(thrname, "XWebKillerD_%d\0", (devtab[tcpdev].minor));
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
     killtid = create((void *)killHttpServer, INITSTK, INITPRIO, thrname,
                      3, httpdev, shelltid, tcpdev);
 
@@ -162,7 +182,11 @@ thread httpServer(int netDescrp, int gentcpdev)
         /* Everything acquired, spawn general http device listener */
         if (semcount(activeXWeb) <= 0)
         {
+<<<<<<< HEAD
             sprintf(thrname, "XWeb_%d", (devtab[gentcpdev].minor));
+=======
+            sprintf(thrname, "XWeb_%d\0", (devtab[gentcpdev].minor));
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
             ready(create((void *)httpServer, INITSTK, INITPRIO,
                          thrname, 2, netDescrp, gentcpdev), RESCHED_NO);
         }
@@ -172,7 +196,11 @@ thread httpServer(int netDescrp, int gentcpdev)
     }
     else
     {
+<<<<<<< HEAD
         sprintf(thrname, "XWeb_%d", (devtab[gentcpdev].minor));
+=======
+        sprintf(thrname, "XWeb_%d\0", (devtab[gentcpdev].minor));
+>>>>>>> bcd791d9b8645ffb0c3709c8a162ca8a5242a9a0
         ready(create((void *)httpServer, INITSTK, INITPRIO,
                      thrname, 2, netDescrp, gentcpdev), RESCHED_NO);
     }
